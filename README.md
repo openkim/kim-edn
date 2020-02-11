@@ -1,5 +1,8 @@
 # KIM-EDN encoder and decoder
 
+[![Build Status](https://travis-ci.org/yafshar/kim_edn.svg?branch=master)](https://travis-ci.org/yafshar/kim_edn)
+[![License](https://img.shields.io/badge/license-CDDL--1.0-blue)](LICENSE)
+
 ## edn
 
 Extensible data notation [eed-n]
