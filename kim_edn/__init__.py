@@ -386,12 +386,13 @@ def loads(s, *, cls=None, parse_float=None, parse_int=None,
     """
     if isinstance(s, str):
         if s.startswith('\ufeff'):
-            raise KIMEDNDecodeError("Unexpected UTF-8 BOM (decode using "
-                                    " utf-8-sig)", s, 0)
+            msg = 'Unexpected UTF-8 BOM (decode using utf-8-sig)'
+            raise KIMEDNDecodeError(msg, s, 0)
     else:
         if not isinstance(s, (bytes, bytearray)):
-            raise TypeError(f'the EDN object must be str, bytes or bytearray, '
-                            f'not {s.__class__.__name__}')
+            msg = 'the EDN object must be str, bytes or bytearray, '
+            msg += 'not {}'.format(s.__class__.__name__)
+            raise TypeError(msg)
 
         s = s.decode(detect_encoding(s), 'surrogatepass')
 
