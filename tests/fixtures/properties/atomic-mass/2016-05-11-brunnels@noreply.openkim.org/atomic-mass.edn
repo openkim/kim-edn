@@ -1,0 +1,19 @@
+{
+  "property-id"           "tag:brunnels@noreply.openkim.org,2016-05-11:property/atomic-mass"
+  "property-title"        "Atomic mass"
+  "property-description"  "The atomic mass of the element"
+  "species" {
+    "type"         "string"
+    "has-unit"     false
+    "extent"       []
+    "required"     true
+    "description"  "Element symbol of the species"
+  }
+  "mass" {
+    "type"         "float"
+    "has-unit"     true
+    "extent"       []
+    "required"     true
+    "description"  "Mass of a single atom of the species"
+  }
+}

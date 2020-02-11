@@ -1,0 +1,23 @@
+{
+  ; property-id
+  "property-id"           "tag:brunnels@noreply.openkim.org,2016-05-11:property/atomic-mass" ; property id containing the unique ID of the property. 
+  ; property-title
+  "property-title" ; containing a one-line title for the property         
+  "Atomic mass"    ; the title is the Atomic mass
+  "property-description"  "The atomic mass of the element"
+  "species" ; species is followed by a map which must contain the following standard keys-value pairs 
+  { 
+    "type"         "string"
+    "has-unit"     false ; species does not have a unit
+    "extent"       [] ; species is a scalar 
+    "required"     true ; it is required to be reported in every instance of the property
+    "description"  "Element symbol of the species"
+  }
+  "mass" {
+    "type"         "float"
+    "has-unit"     true
+    "extent"       []
+    "required"     true
+    "description"  "Mass of a single atom of the species"
+  }
+}
