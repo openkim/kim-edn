@@ -2,11 +2,6 @@ language: python
 
 matrix:
   include:
-    - os: linux
-      python: 3.2
-    - os: linux
-      python: 3.3
-    - os: linux
       python: 3.4
     - os: linux
       python: 3.5
@@ -17,21 +12,33 @@ matrix:
     - os: linux
       python: 3.8
     - os: osx
-      python: 3.7
-      env: TRAVIS_PYTHON_VERSION=3.7
+      osx_image: xcode10.2
+      name: "Generic Python 3.7 on macOS"
+      language: generic
     - os: osx
-      python: 3.8
-      env: TRAVIS_PYTHON_VERSION=3.8
-
-cache: pip
+      os_image: xcode11.2
+      name: "Generic Python 3.8 on macOS"
+      language: generic
 
 before_install:
-  - python --version
-  - pip install -U pip
-  - pip install codecov
+  if [ "$TRAVIS_OS_NAME" == "osx" ]; then
+    python3 --version
+    pip3 install -U pip
+  else
+    python --version
+    pip install -U pip
+  fi
 
 install:
-  - pip install .
+  if [ "$TRAVIS_OS_NAME" == "osx" ]; then
+    pip3 install .
+  else
+    pip install .
+  fi
 
 script:
-  - python -m tests
+  if [ "$TRAVIS_OS_NAME" == "osx" ]; then
+    python3 -m tests
+  else
+    python -m tests
+  fi
