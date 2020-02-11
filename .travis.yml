@@ -23,7 +23,7 @@ before_install:
   - if [ "$TRAVIS_OS_NAME" = "osx" ]; then python3 --version ; fi
   - if [ "$TRAVIS_OS_NAME" = "osx" ]; then pip3 install -U pip ; fi
   - if [ "$TRAVIS_OS_NAME" = "linux" ]; then python --version ; fi
-  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then pip install -U pip ; fi
+  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then pip install -U pip ; fi
 
 install:
   - if [ "$TRAVIS_OS_NAME" = "osx" ]; then pip3 install . ; fi
