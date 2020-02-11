@@ -81,16 +81,13 @@ class TestDecode:
         self.assertRaisesRegex(self.KIMEDNDecodeError, msg, self.loads, s)
 
     def test_invalid_input_type(self):
-        msg = f'the EDN object must be str, bytes or bytearray, '
+        msg_ = 'the EDN object must be str, bytes or bytearray, '
         for value in [1, 3.14, [], {}, None, float('nan'), float('inf'), float('-inf')]:
 
             # Like assertRaises() but also tests that regex matches on the
             # string representation of the raised exception.
-            self.assertRaisesRegex(
-                TypeError,
-                msg + f'not {value.__class__.__name__}',
-                self.loads,
-                value)
+            msg = msg_ + 'not {}'.format(value.__class__.__name__)
+            self.assertRaisesRegex(TypeError, msg, self.loads, value)
 
     def test_string_with_utf8_bom(self):
         bom_kim_edn = "[1,2,3]".encode('utf-8-sig').decode('utf-8')
