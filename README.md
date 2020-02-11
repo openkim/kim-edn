@@ -123,8 +123,9 @@ Specializing KIM-EDN object encoding::
     >>> def encode_complex(obj):
     ...     if isinstance(obj, complex):
     ...         return [obj.real, obj.imag]
-    ...     raise TypeError(f'Object of type {obj.__class__.__name__} '
-    ...                     f'is not EDN serializable')
+    ...     msg = 'Object of type {} is not '.format(obj.__class__.__name__)
+    ...     msg += 'KIM-EDN serializable'
+    ...     raise TypeError(msg)
     ...
     >>> kim_edn.dumps(2 + 1j, default=encode_complex)
     '[2.0 1.0]'

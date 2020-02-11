@@ -76,8 +76,9 @@ class TestEncodeBase:
         def encode_complex(obj):
             if isinstance(obj, complex):
                 return [obj.real, obj.imag]
-            raise TypeError(f'Object of type {obj.__class__.__name__} '
-                            f'is not EDN serializable')
+            msg = 'Object of type {} '.format(obj.__class__.__name__)
+            msg += 'is not KIM-EDN serializable'
+            raise TypeError(msg)
 
         result_ = self.kim_edn.dumps(2 + 1j, default=encode_complex)
 

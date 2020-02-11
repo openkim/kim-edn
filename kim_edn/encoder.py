@@ -110,8 +110,9 @@ class KIMEDNEncoder(object):
                 return KIMEDNEncoder.default(self, o)
 
         """
-        raise TypeError(f'Object of type {o.__class__.__name__} '
-                        f'is not KIM-EDN serializable')
+        msg = 'Object of type {} is not '.format(o.__class__.__name__)
+        msg += 'KIM-EDN serializable'
+        raise TypeError(msg)
 
     def encode(self, o):
         """Return a KIM-EDN string representation of a Python data structure.
