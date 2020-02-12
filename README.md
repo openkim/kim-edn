@@ -1,6 +1,7 @@
 # KIM-EDN encoder and decoder
 
 [![Build Status](https://travis-ci.org/yafshar/kim_edn.svg?branch=master)](https://travis-ci.org/yafshar/kim_edn)
+[![Python package](https://github.com/yafshar/kim_edn/workflows/Python%20package/badge.svg)](https://github.com/yafshar/kim_edn/actions)
 [![License](https://img.shields.io/badge/license-CDDL--1.0-blue)](LICENSE)
 
 ## edn
