@@ -59,7 +59,7 @@ class TestRecursion:
                     else:
                         return 'KIMEDNTestObject'
 
-                return kim_edn.KIMEDNEncoder.default(o)
+                return self.kim_edn.KIMEDNEncoder.default(o)
 
         enc = RecursiveKIMEDNEncoder()
 
