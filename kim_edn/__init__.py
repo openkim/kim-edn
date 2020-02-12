@@ -155,8 +155,6 @@ import codecs
 from .encoder import KIMEDNEncoder
 from .decoder import KIMEDNDecoder, KIMEDNDecodeError
 
-__version__ = '1.0.0'
-
 __all__ = [
     'dump',
     'dumps',
@@ -433,7 +431,3 @@ def loads(s, *, cls=None, parse_float=None, parse_int=None,
         kw['object_pairs_hook'] = object_pairs_hook
 
     return cls(**kw).decode(s)
-
-from ._version import get_versions
-__version__ = get_versions()['version']
-del get_versions
