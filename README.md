@@ -188,6 +188,20 @@ Using kim_edn.tool from the shell to validate and pretty-print::
     }
 ```
 
+## Installation
+
+This package requires Python 3.6 (or newer).
+
+*kim_edn* can be installed with `pip`:
+
+```sh
+pip install kim_edn
+```
+
+### Note
+
+* Depending on your Python installation, you may need to use `pip3` instead of `pip`.
+
 ## References
 
 This module has been adapted and updated from the [python](https://docs.python.org) **json**  module to comply with the [subset of **edn** format used in **KIM**](https://openkim.org/doc/schema/edn-format).
