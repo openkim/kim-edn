@@ -3,30 +3,28 @@
 from setuptools import setup, find_packages
 import versioneer
 
-SUMMARY = """
-KIM-EDN encoder and decoder.
-The KIM infrastructure embraces a subset of edn as a standard data format.
-The primary purpose of this data format choice is to serve as a notational
-superset to JSON with the enhancements being that it (1) allows for comments
-and (2) treats commas as whitespace enabling easier templating.
-`kim_edn` module exposes an API familiar to users of the standard library.
-"""
+with open("README.md", "r") as fh:
+    long_description = fh.read()
 
 setup(
     name='kim_edn',
     version=versioneer.get_version(),
     description='kim_edn - KIM-EDN encoder and decoder.',
-    long_description=SUMMARY.strip(),
+    long_description=long_description,
+    long_description_content_type="text/markdown",
     url='https://github.com/yafshar/kim_edn',
     author='Yaser Afshar',
     author_email='yafshar@umn.edu',
-    license='CDDL',
-    classifiers=['Development Status :: 1 - Production/Stable',
-                 'Intended Audience :: Science/Research',
-                 'Operating System :: OS Independent',
-                 'Programming Language :: Python :: 3.6',
-                 'Programming Language :: Python :: 3.7',
-                 'Programming Language :: Python :: 3.8'],
+    license='CDDL-1.0',
+    classifiers=[
+        'Development Status :: 5 - Production/Stable',
+        'Intended Audience :: Science/Research',
+        'Topic :: Scientific/Engineering',
+        'Operating System :: OS Independent',
+        'License :: OSI Approved :: Common Development and Distribution License 1.0 (CDDL-1.0)',
+        'Programming Language :: Python :: 3',
+    ],
+    python_requires='>=3.6',
     keywords='kim_edn',
     packages=find_packages(),
     install_requires=[],
