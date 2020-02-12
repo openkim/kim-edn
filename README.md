@@ -189,19 +189,49 @@ Using kim_edn.tool from the shell to validate and pretty-print::
     }
 ```
 
-## Installation
+## Installing kim_edn
 
 This package requires Python 3.6 (or newer).
 
-*kim_edn* can be installed with `pip`:
+### Using pip
+
+**pip** is the most popular tool for installing Python packages, and the one
+included with modern versions of Python.
+
+`kim_edn` can be installed with `pip`:
 
 ```sh
 pip install kim_edn
 ```
 
-### Note
+#### Note
 
 * Depending on your Python installation, you may need to use `pip3` instead of `pip`.
+
+### Using conda
+
+**conda** is the package management tool for Anaconda Python installations.
+
+Installing `kim_edn` from the `conda-forge` channel can be achieved by adding
+`conda-forge` to your channels with:
+
+```sh
+conda config --add channels conda-forge
+```
+
+Once the `conda-forge` channel has been enabled, `kim_edn` can be installed
+with:
+
+```sh
+conda install kim_edn
+```
+
+It is possible to list all of the versions of `kim_edn` available on your
+platform with:
+
+```sh
+conda search kim_edn --channel conda-forge
+```
 
 ## References
 
