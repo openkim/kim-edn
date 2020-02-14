@@ -192,7 +192,14 @@ Using kim_edn.tool from the shell to validate and pretty-print::
 
 ## Installing kim_edn
 
-This package requires Python 3.6 (or newer).
+### Requirements
+
+You need Python 3.6 or later to run `kim_edn`. You can have multiple Python
+versions (2.x and 3.x) installed on the same system without problems.
+
+To install Python 3 for different Linux flavors, macOS and Windows, packages
+are available at\
+[https://www.python.org/getit/](https://www.python.org/getit/)
 
 ### Using pip
 
@@ -208,6 +215,16 @@ pip install kim_edn
 #### Note
 
 * Depending on your Python installation, you may need to use `pip3` instead of `pip`.
+
+```sh
+pip3 install kim_edn
+```
+
+* Depending on your configuration, you may have to run `pip` like this:
+
+```sh
+python3 -m pip install kim_edn
+```
 
 ### Using conda
 
