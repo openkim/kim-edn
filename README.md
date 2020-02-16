@@ -1,7 +1,7 @@
 # KIM-EDN encoder and decoder
 
-[![Build Status](https://travis-ci.org/yafshar/kim_edn.svg?branch=master)](https://travis-ci.org/yafshar/kim_edn)
-[![Python package](https://github.com/yafshar/kim_edn/workflows/Python%20package/badge.svg)](https://github.com/yafshar/kim_edn/actions)
+[![Build Status](https://travis-ci.org/yafshar/kim-edn.svg?branch=master)](https://travis-ci.org/yafshar/kim-edn)
+[![Python package](https://github.com/yafshar/kim-edn/workflows/Python%20package/badge.svg)](https://github.com/yafshar/kim-edn/actions)
 [![Windows Build status](https://ci.appveyor.com/api/projects/status/mqcc5gsykasewqb9?svg=true)](https://ci.appveyor.com/project/yafshar/kim-edn)
 [![License](https://img.shields.io/badge/license-CDDL--1.0-blue)](LICENSE)
 
@@ -11,7 +11,7 @@ Extensible data notation [eed-n]
 
 [**edn**](<https://github.com/edn-format/edn>) is an extensible data notation. A superset of **edn** is used by Clojure to represent programs, and it is used by [**KIM**](https://openkim.org) and other applications as a data format.
 
-## kim_edn
+## kim-edn
 
 The **KIM** infrastructure embraces a subset of **edn** as a [standard data format](https://openkim.org/doc/schema/edn-format). The primary purpose of this data format choice is to serve as a notational superset to [**JSON**](https://en.wikipedia.org/wiki/JSON) with the enhancements being that it (1) allows for comments and (2) treats commas as whitespace enabling easier templating.
 
