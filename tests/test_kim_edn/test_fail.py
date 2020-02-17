@@ -109,15 +109,15 @@ class TestFail:
 
     def test_non_string_keys_dict(self):
         data = {'a': 1, (1, 2): 2}
-        msg = f'keys must be str, int, float, or bool, '
-        msg += f'not {(1, 2).__class__.__name__}'
+        msg = 'keys must be `str`, `int`, `float`, or `bool`, '
+        msg += 'not {}'.format((1, 2).__class__.__name__)
         with self.assertRaisesRegex(TypeError, msg):
             self.dumps(data)
 
     def test_not_serializable(self):
         import sys
-        msg = f'Object of type {sys.__class__.__name__} '
-        msg += f'is not KIM-EDN serializable'
+        msg = 'Object of type {} '.format(sys.__class__.__name__)
+        msg += 'is not KIM-EDN serializable'
         with self.assertRaisesRegex(TypeError, msg):
             self.dumps(sys)
 
