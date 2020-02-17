@@ -226,6 +226,16 @@ pip3 install kim_edn
 python3 -m pip install kim_edn
 ```
 
+### Using pip (GIT Support)
+
+`pip` currently supports cloning over `git`
+
+```sh
+pip install git+https://github.com/openkim/kim-edn.git
+```
+
+* For more information and examples, see the [pip install](https://pip.pypa.io/en/stable/reference/pip_install/#id18) reference.
+
 ### Using conda
 
 **conda** is the package management tool for Anaconda Python installations.
