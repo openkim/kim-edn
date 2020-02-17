@@ -311,8 +311,9 @@ def _make_iterencode(markers, _default, _encoder, _indent, _floatstr, _sort_keys
                 # see comment for int/float in _make_iterencode
                 key = _intstr(key)
             else:
-                raise TypeError(f'keys must be str, int, float, or bool, '
-                                f'not {key.__class__.__name__}')
+                msg = 'keys must be `str`, `int`, `float`, or `bool`, '
+                msg += 'not {}'.format(key.__class__.__name__)
+                raise TypeError(msg)
 
             if first:
                 first = False

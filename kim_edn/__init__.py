@@ -305,7 +305,7 @@ def load(fp, *, cls=None, parse_float=None, parse_int=None, parse_constant=None,
     r"""Deserialize ``fp``.
 
     Deserialize ``fp`` (a ``.read()``-supporting file-like object, or a name
-    string to a file containing a KIM EDN document or a valid KIM-EDN
+    string to a file containing a KIM-EDN document or a valid KIM-EDN
     formatted string) to a Python object.
 
     ``object_hook`` is an optional function that will be called with the
@@ -349,7 +349,7 @@ def loads(s, *, cls=None, parse_float=None, parse_int=None,
     r"""Deserialize ``s``.
 
     Deserialize ``s`` (a ``str``, ``bytes`` or ``bytearray`` instance
-    containing a KIM EDN document) to a Python object.
+    containing a KIM-EDN document) to a Python object.
 
     ``object_hook`` is an optional function that will be called with the
     result of any object literal decode (a ``dict``). The return value of

@@ -12,7 +12,7 @@ setup(
     description='kim_edn - KIM-EDN encoder and decoder.',
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url='https://github.com/yafshar/kim_edn',
+    url='https://github.com/yafshar/kim-edn',
     author='Yaser Afshar',
     author_email='yafshar@umn.edu',
     license='CDDL-1.0',
