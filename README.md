@@ -3,6 +3,8 @@
 [![Build Status](https://travis-ci.org/yafshar/kim-edn.svg?branch=master)](https://travis-ci.org/yafshar/kim-edn)
 [![Python package](https://github.com/yafshar/kim-edn/workflows/Python%20package/badge.svg)](https://github.com/yafshar/kim-edn/actions)
 [![Windows Build status](https://ci.appveyor.com/api/projects/status/mqcc5gsykasewqb9?svg=true)](https://ci.appveyor.com/project/yafshar/kim-edn)
+[![Anaconda-Server Badge](https://img.shields.io/conda/vn/conda-forge/kim_edn.svg)](https://anaconda.org/conda-forge/kim_edn)
+[![PyPI](https://img.shields.io/pypi/v/kim-edn.svg)](https://pypi.python.org/pypi/kim-edn)
 [![License](https://img.shields.io/badge/license-CDDL--1.0-blue)](LICENSE)
 
 ## edn
