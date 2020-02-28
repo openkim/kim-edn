@@ -1,6 +1,6 @@
 # KIM-EDN encoder and decoder
 
-[![Build Status](https://travis-ci.org/yafshar/kim-edn.svg?branch=master)](https://travis-ci.org/yafshar/kim-edn)
+[![Build Status](https://travis-ci.org/openkim/kim-edn.svg?branch=master)](https://travis-ci.org/openkim/kim-edn)
 [![Python package](https://github.com/openkim/kim-edn/workflows/Python%20package/badge.svg)](https://github.com/openkim/kim-edn/actions)
 [![Windows Build status](https://ci.appveyor.com/api/projects/status/mqcc5gsykasewqb9?svg=true)](https://ci.appveyor.com/project/yafshar/kim-edn)
 [![codecov](https://codecov.io/gh/openkim/kim-edn/branch/master/graph/badge.svg)](https://codecov.io/gh/openkim/kim-edn)
