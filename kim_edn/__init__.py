@@ -171,7 +171,7 @@ __author__ = 'Bob Ippolito <bob@redivi.com> Yaser Afshar <yafshar@umn.edu>'
 _default_encoder = KIMEDNEncoder()
 
 
-def dump(obj, fp, *, cls=None, indent=None, default=None, sort_keys=False, **kw):
+def dump(obj, fp, *, cls=None, indent=None, default=None, sort_keys=False):
     r"""Serialize ``obj``.
 
     Serialize ``obj`` as a KIM-EDN formatted stream to ``fp`` (a ``.write()``
@@ -199,8 +199,7 @@ def dump(obj, fp, *, cls=None, indent=None, default=None, sort_keys=False, **kw)
     if (cls is None
         and indent is None
         and default is None
-        and not sort_keys
-            and not kw):
+            and not sort_keys):
         iterable = _default_encoder.iterencode(obj)
     else:
         if cls is None:
@@ -208,8 +207,7 @@ def dump(obj, fp, *, cls=None, indent=None, default=None, sort_keys=False, **kw)
 
         iterable = cls(indent=indent,
                        default=default,
-                       sort_keys=sort_keys,
-                       **kw).iterencode(obj)
+                       sort_keys=sort_keys).iterencode(obj)
 
     if isinstance(fp, str):
         # See if this is a file name
@@ -225,7 +223,7 @@ def dump(obj, fp, *, cls=None, indent=None, default=None, sort_keys=False, **kw)
         fp.write("\n")
 
 
-def dumps(obj, *, cls=None, indent=None, default=None, sort_keys=False, **kw):
+def dumps(obj, *, cls=None, indent=None, default=None, sort_keys=False):
     r"""Serialize ``obj`` to a KIM-EDN formatted ``str``.
 
     By default ``dict`` keys that are not basic types (``str``, ``int``,
@@ -249,9 +247,8 @@ def dumps(obj, *, cls=None, indent=None, default=None, sort_keys=False, **kw):
     # cached encoder
     if (cls is None
         and indent is None
-        and default is None
-        and not sort_keys
-            and not kw):
+        and default is None and
+            not sort_keys):
         return _default_encoder.encode(obj)
 
     if cls is None:
@@ -259,8 +256,7 @@ def dumps(obj, *, cls=None, indent=None, default=None, sort_keys=False, **kw):
 
     return cls(indent=indent,
                default=default,
-               sort_keys=sort_keys,
-               **kw).encode(obj)
+               sort_keys=sort_keys).encode(obj)
 
 
 _default_decoder = KIMEDNDecoder()
@@ -301,7 +297,7 @@ def detect_encoding(b):
 
 
 def load(fp, *, cls=None, parse_float=None, parse_int=None, parse_constant=None,
-         object_hook=None, object_pairs_hook=None, **kw):
+         object_hook=None, object_pairs_hook=None):
     r"""Deserialize ``fp``.
 
     Deserialize ``fp`` (a ``.read()``-supporting file-like object, or a name
@@ -340,12 +336,11 @@ def load(fp, *, cls=None, parse_float=None, parse_int=None, parse_constant=None,
                  parse_int=parse_int,
                  parse_constant=parse_constant,
                  object_hook=object_hook,
-                 object_pairs_hook=object_pairs_hook,
-                 **kw)
+                 object_pairs_hook=object_pairs_hook)
 
 
 def loads(s, *, cls=None, parse_float=None, parse_int=None,
-          parse_constant=None, object_hook=None, object_pairs_hook=None, **kw):
+          parse_constant=None, object_hook=None, object_pairs_hook=None):
     r"""Deserialize ``s``.
 
     Deserialize ``s`` (a ``str``, ``bytes`` or ``bytearray`` instance
@@ -380,8 +375,6 @@ def loads(s, *, cls=None, parse_float=None, parse_int=None,
     To use a custom ``KIMEDNDecoder`` subclass, specify it with the ``cls``
     kwarg; otherwise ``KIMEDNDecoder`` is used.
 
-    The ``encoding`` argument is ignored and deprecated since Python 3.1.
-
     """
     if isinstance(s, str):
         if s.startswith('\ufeff'):
@@ -395,26 +388,18 @@ def loads(s, *, cls=None, parse_float=None, parse_int=None,
 
         s = s.decode(detect_encoding(s), 'surrogatepass')
 
-    if "encoding" in kw:
-        import warnings
-        warnings.warn("'encoding' is ignored and deprecated. "
-                      "It will be removed in Python 3.9",
-                      DeprecationWarning,
-                      stacklevel=2)
-        del kw['encoding']
-
-    if (cls is None and
-        parse_float is None
+    if (cls is None
+        and parse_float is None
         and parse_int is None
         and parse_constant is None
-        and object_hook is None
-        and object_pairs_hook is None
-            and not kw):
+        and object_hook is None and
+            object_pairs_hook is None):
         return _default_decoder.decode(s)
 
     if cls is None:
         cls = KIMEDNDecoder
 
+    kw = {}
     if parse_float is not None:
         kw['parse_float'] = parse_float
 
@@ -431,6 +416,7 @@ def loads(s, *, cls=None, parse_float=None, parse_int=None,
         kw['object_pairs_hook'] = object_pairs_hook
 
     return cls(**kw).decode(s)
+
 
 from ._version import get_versions
 __version__ = get_versions()['version']
