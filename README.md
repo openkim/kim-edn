@@ -266,7 +266,7 @@ conda search kim_edn --channel conda-forge
 
 ## References
 
-This module has been adapted and updated from the [python](https://docs.python.org) **json**  module to comply with the [subset of **edn** format used in **KIM**](https://openkim.org/doc/schema/edn-format).
+This module has been adapted and updated from the [python](https://docs.python.org) **json** module to comply with the [subset of **edn** format used in **KIM**](https://openkim.org/doc/schema/edn-format).
 
 ## Copyright
 
