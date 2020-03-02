@@ -47,9 +47,10 @@ JSON's null which is not allowed. Instead consider:
 * [Lists](https://github.com/edn-format/edn#lists) are not allowed, please
 use [vectors](https://github.com/edn-format/edn#vectors) instead
 * [Sets](https://github.com/edn-format/edn#sets) are not allowed
-* [Tagged elements](https://github.com/edn-format/edn#tagged-elements) are not allowed
+* [Tagged elements](https://github.com/edn-format/edn#tagged-elements) are
+not allowed
 
-`kim_edn` has been adapted and updated from the Python `json` module. It
+`kim-edn` has been adapted and updated from the Python `json` module. It
 exposes an API familiar to users of the standard library.
 (See [pickle](https://docs.python.org/3.8/library/pickle.html#module-pickle),
 or
@@ -155,7 +156,7 @@ Specializing KIM-EDN object encoding::
     '[2.0 1.0]'
 ```
 
-Using kim_edn.tool from the shell to validate and pretty-print::
+Using `kim_edn.tool` from the shell to validate and pretty-print::
 
 ```sh
     $ echo '{"kim_edn" "obj"}' | python -m kim_edn.tool
@@ -208,7 +209,7 @@ Using kim_edn.tool from the shell to validate and pretty-print::
     }
 ```
 
-### Note
+**Note:**
 
 This module's encoders and decoders preserve input and output order by
 default. Order is only lost if the underlying containers are unordered.
@@ -263,15 +264,16 @@ included with modern versions of Python.
 pip install kim-edn
 ```
 
-#### Note
+**Note:**
 
-* Depending on your Python installation, you may need to use `pip3` instead of `pip`.
+Depending on your Python installation, you may need to use `pip3` instead of
+`pip`.
 
 ```sh
 pip3 install kim-edn
 ```
 
-* Depending on your configuration, you may have to run `pip` like this:
+Depending on your configuration, you may have to run `pip` like this:
 
 ```sh
 python3 -m pip install kim-edn
@@ -285,7 +287,9 @@ python3 -m pip install kim-edn
 pip install git+https://github.com/openkim/kim-edn.git
 ```
 
-* For more information and examples, see the [pip install](https://pip.pypa.io/en/stable/reference/pip_install/#id18) reference.
+For more information and examples, see the
+[pip install](https://pip.pypa.io/en/stable/reference/pip_install/#id18)
+reference.
 
 ### Using conda
 
@@ -314,12 +318,15 @@ conda search kim-edn --channel conda-forge
 
 ## References
 
-This module has been adapted and updated from the [python](https://docs.python.org) **json** module to comply with the [subset of **edn** format used in **KIM**](https://openkim.org/doc/schema/edn-format).
+This module has been adapted and updated from the
+[python](https://docs.python.org) **json** module to comply with the
+[subset of **edn** format used in **KIM**](https://openkim.org/doc/schema/edn-format).
 
 ## Copyright
 
 Copyright (c) 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010,
-2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019 Python Software Foundation;
+2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019 Python Software
+Foundation;\
 All Rights Reserved
 
 Copyright (c) 2019, Regents of the University of Minnesota.\
