@@ -12,13 +12,21 @@
 
 Extensible data notation [eed-n]
 
-[**edn**](<https://github.com/edn-format/edn>) is an extensible data notation. A superset of **edn** is used by Clojure to represent programs, and it is used by [**KIM**](https://openkim.org) and other applications as a data format.
+[**edn**](<https://github.com/edn-format/edn>) is an extensible data
+notation. A superset of **edn** is used by Clojure to represent programs, and
+it is used by [**KIM**](https://openkim.org) and other applications as a
+data format.
 
 ## kim-edn
 
-The **KIM** infrastructure embraces a subset of **edn** as a [standard data format](https://openkim.org/doc/schema/edn-format). The primary purpose of this data format choice is to serve as a notational superset to [**JSON**](https://en.wikipedia.org/wiki/JSON) with the enhancements being that it (1) allows for comments and (2) treats commas as whitespace enabling easier templating.
+The **KIM** infrastructure embraces a subset of **edn** as a
+[standard data format](https://openkim.org/doc/schema/edn-format). The
+primary purpose of this data format choice is to serve as a notational
+superset to [**JSON**](https://en.wikipedia.org/wiki/JSON) with the
+enhancements being that it (1) allows for comments and (2) treats commas as
+whitespace enabling easier templating.
 
-The subset of **EDN** allowed is constrained to:
+The subset of **edn** allowed is constrained to:
 
 * [Booleans](https://github.com/edn-format/edn#booleans)
 * [Strings](https://github.com/edn-format/edn#strings)
@@ -29,17 +37,24 @@ The subset of **EDN** allowed is constrained to:
 
 Exceptions:
 
-* [nil](https://github.com/edn-format/edn#nil) is not allowed, this includes JSON's null which is not allowed. Instead consider:
+* [nil](https://github.com/edn-format/edn#nil) is not allowed, this includes
+JSON's null which is not allowed. Instead consider:
     1. using an empty string ("") as the value,
     2. using the number 0 as the value,
     3. or omitting a key-value pair.
 * [Symbols](https://github.com/edn-format/edn#symbols) are not allowed
 * [Keywords](https://github.com/edn-format/edn#keywords) are not allowed
-* [Lists](https://github.com/edn-format/edn#lists) are not allowed, please use [vectors](https://github.com/edn-format/edn#vectors) instead
+* [Lists](https://github.com/edn-format/edn#lists) are not allowed, please
+use [vectors](https://github.com/edn-format/edn#vectors) instead
 * [Sets](https://github.com/edn-format/edn#sets) are not allowed
 * [Tagged elements](https://github.com/edn-format/edn#tagged-elements) are not allowed
 
-`kim_edn` module exposes an API familiar to users of the standard library.
+`kim_edn` has been adapted and updated from the Python `json` module. It
+exposes an API familiar to users of the standard library.
+(See [pickle](https://docs.python.org/3.8/library/pickle.html#module-pickle),
+or
+[marshal](https://docs.python.org/3.8/library/marshal.html), or
+[json](https://docs.python.org/3.8/library/json.html) modules.)
 
 Encoding basic Python object hierarchies::
 
@@ -193,11 +208,44 @@ Using kim_edn.tool from the shell to validate and pretty-print::
     }
 ```
 
-## Installing kim_edn
+### Note
+
+This module's encoders and decoders preserve input and output order by
+default. Order is only lost if the underlying containers are unordered.
+
+## Encoders and Decoders
+
+KIM-EDN decoder (KIMEDNDecoder) object, performs the following translations
+in decoding by default:
+
+| KIM-EDN                       | Python   |
+|-------------------------------|----------|
+| object                        | dict     |
+| Vectors (or "arrays")         | list     |
+| Strings                       | str      |
+| Integers numbers (int)        | int      |
+| Floating point numbers (real) | float    |
+| true                          | True     |
+| false                         | False    |
+
+KIM-EDN encoder (KIMEDNEncoder) for OpenKIM Python data structures, supports
+the following objects and types by default:
+
+| Python            | KIM-EDN                                     |
+|-------------------|---------------------------------------------|
+| dict              | Maps (or "hash", "dicts", "hashmaps", etc.) |
+| list              | Vectors (or "arrays")                       |
+| str               | Strings                                     |
+| int               | Integers numbers                            |
+| float             | Floating point numbers                      |
+| True              | true                                        |
+| False             | false                                       |
+
+## Installing kim-edn
 
 ### Requirements
 
-You need Python 3.6 or later to run `kim_edn`. You can have multiple Python
+You need Python 3.6 or later to run `kim-edn`. You can have multiple Python
 versions (2.x and 3.x) installed on the same system without problems.
 
 To install Python 3 for different Linux flavors, macOS and Windows, packages
@@ -209,10 +257,10 @@ are available at\
 **pip** is the most popular tool for installing Python packages, and the one
 included with modern versions of Python.
 
-`kim_edn` can be installed with `pip`:
+`kim-edn` can be installed with `pip`:
 
 ```sh
-pip install kim_edn
+pip install kim-edn
 ```
 
 #### Note
@@ -220,13 +268,13 @@ pip install kim_edn
 * Depending on your Python installation, you may need to use `pip3` instead of `pip`.
 
 ```sh
-pip3 install kim_edn
+pip3 install kim-edn
 ```
 
 * Depending on your configuration, you may have to run `pip` like this:
 
 ```sh
-python3 -m pip install kim_edn
+python3 -m pip install kim-edn
 ```
 
 ### Using pip (GIT Support)
@@ -243,25 +291,25 @@ pip install git+https://github.com/openkim/kim-edn.git
 
 **conda** is the package management tool for Anaconda Python installations.
 
-Installing `kim_edn` from the `conda-forge` channel can be achieved by adding
+Installing `kim-edn` from the `conda-forge` channel can be achieved by adding
 `conda-forge` to your channels with:
 
 ```sh
 conda config --add channels conda-forge
 ```
 
-Once the `conda-forge` channel has been enabled, `kim_edn` can be installed
+Once the `conda-forge` channel has been enabled, `kim-edn` can be installed
 with:
 
 ```sh
-conda install kim_edn
+conda install kim-edn
 ```
 
-It is possible to list all of the versions of `kim_edn` available on your
+It is possible to list all of the versions of `kim-edn` available on your
 platform with:
 
 ```sh
-conda search kim_edn --channel conda-forge
+conda search kim-edn --channel conda-forge
 ```
 
 ## References
