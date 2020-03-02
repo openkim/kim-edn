@@ -332,26 +332,26 @@ def KIMEDNArray(s_and_end, scan_once, _w=WHITESPACE.match,
 
 
 class KIMEDNDecoder(object):
-    """Simple KIM-EDN decoder (KIMEDNDecoder) object.
+    """A KIM-EDN decoder (KIMEDNDecoder) object.
 
     Performs the following translations in decoding by default:
-    +---------------+----------+
-    | KIM-EDN       | Python   |
-    +===============+==========+
-    | object        | dict     |
-    +---------------+----------+
-    | array         | list     |
-    +---------------+----------+
-    | string        | str      |
-    +---------------+----------+
-    | number (int)  | int      |
-    +---------------+----------+
-    | number (real) | float    |
-    +---------------+----------+
-    | true          | True     |
-    +---------------+----------+
-    | false         | False    |
-    +---------------+----------+
+    +-------------------------------+----------+
+    | KIM-EDN                       | Python   |
+    +===============================+==========+
+    | Object                        | dict     |
+    +-------------------------------+----------+
+    | Vectors (or "arrays")         | list     |
+    +-------------------------------+----------+
+    | Strings                       | str      |
+    +-------------------------------+----------+
+    | Integers numbers (int)        | int      |
+    +-------------------------------+----------+
+    | Floating point numbers (real) | float    |
+    +-------------------------------+----------+
+    | true                          | True     |
+    +-------------------------------+----------+
+    | false                         | False    |
+    +-------------------------------+----------+
 
     """
 
