@@ -7,9 +7,9 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setup(
-    name='kim_edn',
+    name='kim-edn',
     version=versioneer.get_version(),
-    description='kim_edn - KIM-EDN encoder and decoder.',
+    description='kim-edn - KIM-EDN encoder and decoder.',
     long_description=long_description,
     long_description_content_type="text/markdown",
     url='https://github.com/openkim/kim-edn',
@@ -27,7 +27,7 @@ setup(
         'Programming Language :: Python :: 3.8'
     ],
     python_requires='>=3.6',
-    keywords='kim_edn',
+    keywords=['kim-edn', 'edn'],
     packages=find_packages(),
     install_requires=[],
     cmdclass=versioneer.get_cmdclass(),
