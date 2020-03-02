@@ -4,7 +4,7 @@
 [![Python package](https://github.com/openkim/kim-edn/workflows/Python%20package/badge.svg)](https://github.com/openkim/kim-edn/actions)
 [![Windows Build status](https://ci.appveyor.com/api/projects/status/mqcc5gsykasewqb9?svg=true)](https://ci.appveyor.com/project/yafshar/kim-edn)
 [![codecov](https://codecov.io/gh/openkim/kim-edn/branch/master/graph/badge.svg)](https://codecov.io/gh/openkim/kim-edn)
-[![Anaconda-Server Badge](https://img.shields.io/conda/vn/conda-forge/kim_edn.svg)](https://anaconda.org/conda-forge/kim_edn)
+[![Anaconda-Server Badge](https://img.shields.io/conda/vn/conda-forge/kim-edn.svg)](https://anaconda.org/conda-forge/kim-edn)
 [![PyPI](https://img.shields.io/pypi/v/kim-edn.svg)](https://pypi.python.org/pypi/kim-edn)
 [![License](https://img.shields.io/badge/license-CDDL--1.0-blue)](LICENSE.CDDL)
 
