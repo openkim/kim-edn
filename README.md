@@ -1,8 +1,7 @@
 # KIM-EDN encoder and decoder
 
-[![Build Status](https://travis-ci.org/openkim/kim-edn.svg?branch=master)](https://travis-ci.org/openkim/kim-edn)
 [![Python package](https://github.com/openkim/kim-edn/workflows/Python%20package/badge.svg)](https://github.com/openkim/kim-edn/actions)
-[![Windows Build status](https://ci.appveyor.com/api/projects/status/mqcc5gsykasewqb9?svg=true)](https://ci.appveyor.com/project/yafshar/kim-edn)
+[![Windows Build status](https://ci.appveyor.com/api/projects/status/3amxmm9j5v8eykn2?svg=true)](https://ci.appveyor.com/project/yafshar/kim-edn)
 [![codecov](https://codecov.io/gh/openkim/kim-edn/branch/master/graph/badge.svg)](https://codecov.io/gh/openkim/kim-edn)
 [![Anaconda-Server Badge](https://img.shields.io/conda/vn/conda-forge/kim-edn.svg)](https://anaconda.org/conda-forge/kim-edn)
 [![PyPI](https://img.shields.io/pypi/v/kim-edn.svg)](https://pypi.python.org/pypi/kim-edn)
@@ -329,7 +328,7 @@ Copyright (c) 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010,
 Foundation;\
 All Rights Reserved
 
-Copyright (c) 2019, Regents of the University of Minnesota.\
+Copyright (c) 2019-2021, Regents of the University of Minnesota.\
 All Rights Reserved
 
 ## Contributing
