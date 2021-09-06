@@ -37,3 +37,11 @@ jobs:
     - name: Post Coverage
       uses: codecov/codecov-action@v2
       if: matrix.os == 'ubuntu-latest' && matrix.python-version == '3.9'
+      with:
+        directory: ./coverage/reports/
+        env_vars: os,python
+        fail_ci_if_error: true
+        flags: unittests
+        name: codecov-umbrella
+        path_to_write_report: ./coverage/codecov_report.txt
+        verbose: true
