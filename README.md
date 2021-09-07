@@ -5,7 +5,7 @@
 [![codecov](https://codecov.io/gh/openkim/kim-edn/branch/master/graph/badge.svg)](https://codecov.io/gh/openkim/kim-edn)
 [![Anaconda-Server Badge](https://img.shields.io/conda/vn/conda-forge/kim-edn.svg)](https://anaconda.org/conda-forge/kim-edn)
 [![PyPI](https://img.shields.io/pypi/v/kim-edn.svg)](https://pypi.python.org/pypi/kim-edn)
-[![License](https://img.shields.io/badge/license-LGPLv2.1+-blue)](LICENSE)
+[![License](https://img.shields.io/badge/license-LGPL--2.1--or--later-blue)](LICENSE)
 
 ## edn
 
