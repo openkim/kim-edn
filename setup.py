@@ -15,7 +15,7 @@ setup(
     url='https://github.com/openkim/kim-edn',
     author='Yaser Afshar',
     author_email='yafshar@umn.edu',
-    license='LGPLv2.1+',
+    license='LGPL-2.1-or-later',
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Science/Research',
