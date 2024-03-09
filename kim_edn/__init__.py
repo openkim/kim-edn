@@ -418,6 +418,7 @@ def loads(s, *, cls=None, parse_float=None, parse_int=None,
     return cls(**kw).decode(s)
 
 
-from ._version import get_versions
-__version__ = get_versions()['version']
-del get_versions
+
+from . import _version
+__version__ = _version.get_versions()['version']
+
