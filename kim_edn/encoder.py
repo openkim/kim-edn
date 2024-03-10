@@ -110,8 +110,7 @@ class KIMEDNEncoder(object):
                 return super().default(o)
 
         """
-        msg = 'Object of type {} is not '.format(o.__class__.__name__)
-        msg += 'KIM-EDN serializable'
+        msg = f'Object of type {o.__class__.__name__} is not KIM-EDN serializable'
         raise TypeError(msg)
 
     def encode(self, o):
@@ -312,7 +311,7 @@ def _make_iterencode(markers, _default, _encoder, _indent, _floatstr, _sort_keys
                 key = _intstr(key)
             else:
                 msg = 'keys must be `str`, `int`, `float`, or `bool`, '
-                msg += 'not {}'.format(key.__class__.__name__)
+                msg += f'not {key.__class__.__name__}'
                 raise TypeError(msg)
 
             if first:

@@ -81,8 +81,7 @@ Specializing KIM-EDN object encoding::
     >>> def encode_complex(obj):
     ...     if isinstance(obj, complex):
     ...         return [obj.real, obj.imag]
-    ...     msg = 'Object of type {} is not '.format(obj.__class__.__name__)
-    ...     msg += 'KIM-EDN serializable'
+    ...     msg = f'Object of type {obj.__class__.__name__} is not KIM-EDN serializable'
     ...     raise TypeError(msg)
     ...
     >>> kim_edn.dumps(2 + 1j, default=encode_complex)
@@ -383,7 +382,7 @@ def loads(s, *, cls=None, parse_float=None, parse_int=None,
     else:
         if not isinstance(s, (bytes, bytearray)):
             msg = 'the EDN object must be str, bytes or bytearray, '
-            msg += 'not {}'.format(s.__class__.__name__)
+            msg += f'not {s.__class__.__name__}'
             raise TypeError(msg)
 
         s = s.decode(detect_encoding(s), 'surrogatepass')
