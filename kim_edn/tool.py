@@ -62,9 +62,9 @@ def main():
 
     try:
         if options.infile == '-':
-           infile = sys.stdin
+            infile = sys.stdin
         else:
-           infile = open(options.infile, encoding='utf-8')
+            infile = open(options.infile, encoding='utf-8')
 
         try:
             if options.edn_lines:
@@ -73,12 +73,12 @@ def main():
                 objs = (kim_edn.load(infile), )
         finally:
             if infile is not sys.stdin:
-               infile.close()
+                infile.close()
 
         if options.outfile is None:
-           outfile = sys.stdout
+            outfile = sys.stdout
         else:
-           outfile = options.outfile.open('w', encoding='utf-8')
+            outfile = options.outfile.open('w', encoding='utf-8')
 
         with outfile:
             for obj in objs:
@@ -93,4 +93,3 @@ if __name__ == '__main__':
         main()
     except BrokenPipeError as exc:
         sys.exit(exc.errno)
-
