@@ -107,7 +107,7 @@ class KIMEDNEncoder(object):
                     return list(iterable)
 
                 # Let the base class default method raise the TypeError
-                return KIMEDNEncoder.default(self, o)
+                return super().default(o)
 
         """
         msg = 'Object of type {} is not '.format(o.__class__.__name__)
