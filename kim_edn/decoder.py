@@ -45,6 +45,7 @@ def _decode_uXXXX(s, pos):
             return int(esc, 16)
         except ValueError:
             pass
+
     msg = "Invalid \\uXXXX escape"
     raise KIMEDNDecodeError(msg, s, pos)
 
