@@ -10,4 +10,3 @@ class TestDefault:
 
 class TestPyDefault(TestDefault, PyTest):
     pass
-
