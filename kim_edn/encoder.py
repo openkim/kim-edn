@@ -29,12 +29,12 @@ def encode_basestring_ascii(s):
             n = ord(s)
             if n < 0x10000:
                 return '\\u{0:04x}'.format(n)
-            else:
-                # surrogate pair
-                n -= 0x10000
-                s1 = 0xd800 | ((n >> 10) & 0x3ff)
-                s2 = 0xdc00 | (n & 0x3ff)
-                return '\\u{0:04x}\\u{1:04x}'.format(s1, s2)
+
+            # surrogate pair
+            n -= 0x10000
+            s1 = 0xd800 | ((n >> 10) & 0x3ff)
+            s2 = 0xdc00 | (n & 0x3ff)
+            return '\\u{0:04x}\\u{1:04x}'.format(s1, s2)
     return '"' + ESCAPE_ASCII.sub(replace, s) + '"'
 
 
@@ -170,9 +170,9 @@ class KIMEDNEncoder(object):
 
             if o != o or o == INFINITY or o == -INFINITY:
                 raise ValueError(
-                    "Out of range float values are not KIM-EDN compliant: " + repr(o))
-            else:
-                return _repr(o)
+                    f"Out of range float values are not KIM-EDN compliant: {repr(o)}")
+
+            return _repr(o)
 
         _iterencode = _make_iterencode(markers,
                                        self.default,
@@ -213,6 +213,7 @@ def _make_iterencode(markers, _default, _encoder, _indent, _floatstr, _sort_keys
             markerid = id(vct)
             if markerid in markers:
                 raise ValueError("Circular reference detected")
+
             markers[markerid] = vct
 
         buf = '['
@@ -275,6 +276,7 @@ def _make_iterencode(markers, _default, _encoder, _indent, _floatstr, _sort_keys
             markerid = id(dct)
             if markerid in markers:
                 raise ValueError("Circular reference detected")
+
             markers[markerid] = dct
 
         yield '{'
@@ -376,6 +378,7 @@ def _make_iterencode(markers, _default, _encoder, _indent, _floatstr, _sort_keys
                 markerid = id(o)
                 if markerid in markers:
                     raise ValueError("Circular reference detected")
+
                 markers[markerid] = o
 
             o = _default(o)
