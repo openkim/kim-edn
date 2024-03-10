@@ -60,6 +60,7 @@ DOCS = r'''
 ,"rosebud"
 ]'''
 
+
 class TestPass1:
     def test_parse(self):
         # test in/out equivalence and parsing
