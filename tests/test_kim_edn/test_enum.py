@@ -1,5 +1,4 @@
 from enum import Enum, IntEnum
-from math import isnan
 from tests.test_kim_edn import PyTest
 
 
