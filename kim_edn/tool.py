@@ -33,7 +33,6 @@ Command-line tool to validate and pretty-print KIM-EDN
 import argparse
 import kim_edn
 import sys
-from pathlib import Path
 
 
 def main():
@@ -46,14 +45,12 @@ def main():
     parser = argparse.ArgumentParser(prog=prog, description=description)
 
     parser.add_argument('infile', nargs='?',
-                        type=Path,
                         help='a KIM-EDN file to be validated or pretty-printed',
-                        default=None)
+                        default='-')
 
     parser.add_argument('outfile', nargs='?',
-                        type=argparse.FileType('w', encoding="utf-8"),
                         help='write the output of infile to outfile',
-                        default=sys.stdout)
+                        default=None)
 
     parser.add_argument('--sort-keys', action='store_true', default=False,
                         help='sort the output of dictionaries alphabetically by key')
@@ -63,26 +60,37 @@ def main():
 
     options = parser.parse_args()
 
-    with options.infile as infile:
+    try:
+        if options.infile == '-':
+           infile = sys.stdin
+        else:
+           infile = open(options.infile, encoding='utf-8')
+
         try:
             if options.edn_lines:
                 objs = (kim_edn.loads(line) for line in infile)
             else:
                 objs = (kim_edn.load(infile), )
+        finally:
+            if infile is not sys.stdin:
+               infile.close()
 
-            if options.outfile is None:
-                out = sys.stdout
-            else:
-                out = options.outfile.open('w', encoding='utf-8')
+        if options.outfile is None:
+           outfile = sys.stdout
+        else:
+           outfile = options.outfile.open('w', encoding='utf-8')
 
-            with out as outfile:
-                for obj in objs:
-                    kim_edn.dump(obj, outfile, sort_keys=options.sort_keys,
-                                 indent=4)
-                    outfile.write('\n')
-        except ValueError as e:
-            raise SystemExit(e)
+         with outfile:
+             for obj in objs:
+                 kim_edn.dump(obj, outfile, sort_keys=options.sort_keys, indent=4)
+                 outfile.write('\n')
+    except ValueError as e:
+        raise SystemExit(e)
 
 
 if __name__ == '__main__':
-    main()
+    try:
+        main()
+    except BrokenPipeError as exc:
+        sys.exit(exc.errno)
+
