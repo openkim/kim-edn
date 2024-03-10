@@ -14,7 +14,7 @@ ESCAPE_DCT = {
 
 for _i in range(0x20):
     ESCAPE_DCT.setdefault(chr(_i), '\\u{0:04x}'.format(_i))
-del(_i)
+del _i
 
 INFINITY = float('inf')
 
