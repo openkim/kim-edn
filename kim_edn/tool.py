@@ -80,10 +80,10 @@ def main():
         else:
            outfile = options.outfile.open('w', encoding='utf-8')
 
-         with outfile:
-             for obj in objs:
-                 kim_edn.dump(obj, outfile, sort_keys=options.sort_keys, indent=4)
-                 outfile.write('\n')
+        with outfile:
+            for obj in objs:
+                kim_edn.dump(obj, outfile, sort_keys=options.sort_keys, indent=4)
+                outfile.write('\n')
     except ValueError as e:
         raise SystemExit(e)
 
