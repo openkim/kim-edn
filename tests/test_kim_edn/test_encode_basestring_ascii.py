@@ -1,5 +1,4 @@
 from collections import OrderedDict
-from test.support import bigaddrspacetest
 from tests.test_kim_edn import PyTest
 
 
