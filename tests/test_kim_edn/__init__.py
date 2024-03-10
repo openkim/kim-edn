@@ -2,7 +2,7 @@ import unittest
 
 try:
     import kim_edn
-except:
+except ImportError:
     raise Exception('Failed to import `kim_edn` utility module')
 
 
