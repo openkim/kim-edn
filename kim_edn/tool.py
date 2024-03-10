@@ -33,6 +33,7 @@ Command-line tool to validate and pretty-print KIM-EDN
 import argparse
 import kim_edn
 import sys
+from pathlib import Path
 
 
 def main():
@@ -45,9 +46,9 @@ def main():
     parser = argparse.ArgumentParser(prog=prog, description=description)
 
     parser.add_argument('infile', nargs='?',
-                        type=argparse.FileType(encoding="utf-8"),
+                        type=Path,
                         help='a KIM-EDN file to be validated or pretty-printed',
-                        default=sys.stdin)
+                        default=None)
 
     parser.add_argument('outfile', nargs='?',
                         type=argparse.FileType('w', encoding="utf-8"),
@@ -62,17 +63,23 @@ def main():
 
     options = parser.parse_args()
 
-    with options.infile as infile, options.outfile as outfile:
+    with options.infile as infile:
         try:
             if options.edn_lines:
                 objs = (kim_edn.loads(line) for line in infile)
             else:
                 objs = (kim_edn.load(infile), )
 
-            for obj in objs:
-                kim_edn.dump(obj, outfile, sort_keys=options.sort_keys,
-                             indent=4)
-                outfile.write('\n')
+            if options.outfile is None:
+                out = sys.stdout
+            else:
+                out = options.outfile.open('w', encoding='utf-8')
+
+            with out as outfile:
+                for obj in objs:
+                    kim_edn.dump(obj, outfile, sort_keys=options.sort_keys,
+                                 indent=4)
+                    outfile.write('\n')
         except ValueError as e:
             raise SystemExit(e)
 
