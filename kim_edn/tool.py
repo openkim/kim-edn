@@ -78,12 +78,15 @@ def main():
         if options.outfile is None:
             outfile = sys.stdout
         else:
-            outfile = options.outfile.open('w', encoding='utf-8')
+            outfile = open(options.outfile, 'w', encoding='utf-8')
 
         with outfile:
             for obj in objs:
                 kim_edn.dump(obj, outfile, sort_keys=options.sort_keys, indent=4)
                 outfile.write('\n')
+
+        if outfile is not sys.stdout:
+           outfile.close()
     except ValueError as e:
         raise SystemExit(e)
 
