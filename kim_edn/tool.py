@@ -58,6 +58,10 @@ def main():
     parser.add_argument('--edn-lines', action='store_true', default=False,
                         help='parse input using the kim_edn lines format')
 
+    parser.add_argument('--indent', default=4, type=int,
+                       help='separate items with newlines and use this number '
+                       'of spaces for indentation')
+
     options = parser.parse_args()
 
     try:
@@ -82,7 +86,7 @@ def main():
 
         with outfile:
             for obj in objs:
-                kim_edn.dump(obj, outfile, sort_keys=options.sort_keys, indent=4)
+                kim_edn.dump(obj, outfile, sort_keys=options.sort_keys, indent=options.indent)
                 outfile.write('\n')
 
         if outfile is not sys.stdout:
