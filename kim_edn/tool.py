@@ -58,11 +58,27 @@ def main():
     parser.add_argument('--edn-lines', action='store_true', default=False,
                         help='parse input using the kim_edn lines format')
 
-    parser.add_argument('--indent', default=4, type=int,
+    group = parser.add_mutually_exclusive_group()
+
+    group.add_argument('--indent', default=4, type=int,
                        help='separate items with newlines and use this number '
                        'of spaces for indentation')
 
+    group.add_argument('--tab', action='store_const', dest='indent',
+                       const='\t', help='separate items with newlines and use '
+                       'tabs for indentation')
+
+    group.add_argument('--no-indent', action='store_const', dest='indent',
+                       const=None,
+                       help='separate items with spaces rather than newlines')
+
+    group.add_argument('--compact', action='store_true',
+                       help='suppress all whitespace separation (most compact)')
+
     options = parser.parse_args()
+
+    if options.compact:
+        options.indent = None
 
     try:
         if options.infile == '-':
