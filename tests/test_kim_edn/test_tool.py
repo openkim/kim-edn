@@ -1,17 +1,15 @@
 import os
 import subprocess
 import sys
+from tests.test_kim_edn import PyTest
 import textwrap
 import unittest
 
 if sys.version_info.minor >= 10:
     from test.support import os_helper
 
-if sys.version_info.minor >= 9:
-    from test.support.script_helper import assert_python_ok
 
-
-class TestTool(unittest.TestCase):
+class TestTool:
     data = """
 
         [["blorpie"],[ "whoops" ] , [
@@ -93,6 +91,8 @@ class TestTool(unittest.TestCase):
     def test_stdin_stdout(self):
         args = sys.executable, '-m', 'kim_edn.tool'
         process = subprocess.run(args, input=self.data, capture_output=True, text=True, check=True)
+
+        self.assertEqual(process.returncode, 0)
         self.assertEqual(process.stdout, self.expect)
         self.assertEqual(process.stderr, '')
 
@@ -102,17 +102,18 @@ class TestTool(unittest.TestCase):
         with open(infile, "w", encoding="utf-8") as fp:
             self.addCleanup(os.remove, infile)
             fp.write(data or self.data)
+
         return infile
 
-    @unittest.skipIf(sys.version_info.minor < 9, "not supported in this Python version")
     def test_infile_stdout(self):
         infile = self._create_infile()
-        rc, out, err = assert_python_ok('-m', 'kim_edn.tool', infile)
-        self.assertEqual(rc, 0)
-        self.assertEqual(out.splitlines(), self.expect.encode().splitlines())
-        self.assertEqual(err, b'')
+        args = sys.executable, '-m', 'kim_edn.tool', infile
+        process = subprocess.run(args, capture_output=True, check=True)
 
-    @unittest.skipIf(sys.version_info.minor < 9, "not supported in this Python version")
+        self.assertEqual(process.returncode, 0)
+        self.assertEqual(process.stdout.splitlines(), self.expect.encode().splitlines())
+        self.assertEqual(process.stderr, b'')
+
     def test_non_ascii_infile(self):
         data = '{"msg": "\u3053\u3093\u306b\u3061\u306f"}'
         expect = textwrap.dedent('''\
@@ -123,55 +124,66 @@ class TestTool(unittest.TestCase):
         ''').encode()
 
         infile = self._create_infile(data)
-        rc, out, err = assert_python_ok('-m', 'kim_edn.tool', infile)
+        args = sys.executable, '-m', 'kim_edn.tool', infile
+        process = subprocess.run(args, capture_output=True, check=True)
 
-        self.assertEqual(rc, 0)
-        self.assertEqual(out.splitlines(), expect.splitlines())
-        self.assertEqual(err, b'')
+        self.assertEqual(process.returncode, 0)
+        self.assertEqual(process.stdout.splitlines(), expect.splitlines())
+        self.assertEqual(process.stderr, b'')
 
     @unittest.skipIf(sys.version_info.minor < 10, "not supported in this Python version")
     def test_infile_outfile(self):
         infile = self._create_infile()
         outfile = os_helper.TESTFN + '.out'
-        rc, out, err = assert_python_ok('-m', 'kim_edn.tool', infile, outfile)
+        args = sys.executable, '-m', 'kim_edn.tool', infile, outfile
+        process = subprocess.run(args, capture_output=True, check=True)
+
         self.addCleanup(os.remove, outfile)
+
         with open(outfile, "r", encoding="utf-8") as fp:
             self.assertEqual(fp.read(), self.expect)
-        self.assertEqual(rc, 0)
-        self.assertEqual(out, b'')
-        self.assertEqual(err, b'')
 
-    @unittest.skipIf(sys.version_info.minor < 9, "not supported in this Python version")
+        self.assertEqual(process.returncode, 0)
+        self.assertEqual(process.stdout, b'')
+        self.assertEqual(process.stderr, b'')
+
     def test_writing_in_place(self):
         infile = self._create_infile()
-        rc, out, err = assert_python_ok('-m', 'kim_edn.tool', infile, infile)
+        args = sys.executable, '-m', 'kim_edn.tool', infile, infile
+        process = subprocess.run(args, capture_output=True, check=True)
+
         with open(infile, "r", encoding="utf-8") as fp:
             self.assertEqual(fp.read(), self.expect)
-        self.assertEqual(rc, 0)
-        self.assertEqual(out, b'')
-        self.assertEqual(err, b'')
+
+        self.assertEqual(process.returncode, 0)
+        self.assertEqual(process.stdout, b'')
+        self.assertEqual(process.stderr, b'')
 
     def test_edn_lines(self):
         args = sys.executable, '-m', 'kim_edn.tool', '--edn-lines'
         process = subprocess.run(args, input=self.ednlines_raw, capture_output=True, text=True, check=True)
+
+        self.assertEqual(process.returncode, 0)
         self.assertEqual(process.stdout, self.ednlines_expect)
         self.assertEqual(process.stderr, '')
 
-    @unittest.skipIf(sys.version_info.minor < 9, "not supported in this Python version")
     def test_help_flag(self):
-        rc, out, err = assert_python_ok('-m', 'kim_edn.tool', '-h')
-        self.assertEqual(rc, 0)
-        self.assertTrue(out.startswith(b'usage: '))
-        self.assertEqual(err, b'')
+        args = sys.executable, '-m', 'kim_edn.tool', '-h'
+        process = subprocess.run(args, capture_output=True, text=True, check=True)
 
-    @unittest.skipIf(sys.version_info.minor < 9, "not supported in this Python version")
+        self.assertEqual(process.returncode, 0)
+        self.assertTrue(process.stdout.startswith('usage: '))
+        self.assertEqual(process.stderr, '')
+
     def test_sort_keys_flag(self):
         infile = self._create_infile()
-        rc, out, err = assert_python_ok('-m', 'kim_edn.tool', '--sort-keys', infile)
-        self.assertEqual(rc, 0)
-        self.assertEqual(out.splitlines(),
+        args = sys.executable, '-m', 'kim_edn.tool', '--sort-keys', infile
+        process = subprocess.run(args, capture_output=True, check=True)
+
+        self.assertEqual(process.returncode, 0)
+        self.assertEqual(process.stdout.splitlines(),
                          self.expect_without_sort_keys.encode().splitlines())
-        self.assertEqual(err, b'')
+        self.assertEqual(process.stderr, b'')
 
     def test_indent(self):
         input_ = '[1, 2]'
@@ -184,6 +196,8 @@ class TestTool(unittest.TestCase):
         ''')  # noqa
         args = sys.executable, '-m', 'kim_edn.tool', '--indent', '2'
         process = subprocess.run(args, input=input_, capture_output=True, text=True, check=True)
+
+        self.assertEqual(process.returncode, 0)
         self.assertEqual(process.stdout, expect)
         self.assertEqual(process.stderr, '')
 
@@ -192,6 +206,8 @@ class TestTool(unittest.TestCase):
         expect = '[1 2]\n\n'
         args = sys.executable, '-m', 'kim_edn.tool', '--no-indent'
         process = subprocess.run(args, input=input_, capture_output=True, text=True, check=True)
+
+        self.assertEqual(process.returncode, 0)
         self.assertEqual(process.stdout, expect)
         self.assertEqual(process.stderr, '')
 
@@ -200,6 +216,8 @@ class TestTool(unittest.TestCase):
         expect = '[\n\t1 \n\t2\n]\n\n'
         args = sys.executable, '-m', 'kim_edn.tool', '--tab'
         process = subprocess.run(args, input=input_, capture_output=True, text=True, check=True)
+
+        self.assertEqual(process.returncode, 0)
         self.assertEqual(process.stdout, expect)
         self.assertEqual(process.stderr, '')
 
@@ -208,5 +226,11 @@ class TestTool(unittest.TestCase):
         expect = '[1 2]\n\n'
         args = sys.executable, '-m', 'kim_edn.tool', '--compact'
         process = subprocess.run(args, input=input_, capture_output=True, text=True, check=True)
+
+        self.assertEqual(process.returncode, 0)
         self.assertEqual(process.stdout, expect)
         self.assertEqual(process.stderr, '')
+
+
+class TestPyTestTool(TestTool, PyTest):
+    pass
