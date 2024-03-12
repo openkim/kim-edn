@@ -4,8 +4,6 @@ import sys
 import textwrap
 import unittest
 
-from test import support
-
 if sys.version_info.minor >= 10:
     from test.support import os_helper
 
@@ -13,7 +11,6 @@ if sys.version_info.minor >= 9:
     from test.support.script_helper import assert_python_ok
 
 
-@support.requires_subprocess()
 class TestTool(unittest.TestCase):
     data = """
 
