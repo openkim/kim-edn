@@ -1,7 +1,6 @@
 # KIM-EDN encoder and decoder
 
 [![Python package](https://github.com/openkim/kim-edn/workflows/Python%20package/badge.svg)](https://github.com/openkim/kim-edn/actions)
-[![Windows Build status](https://ci.appveyor.com/api/projects/status/3amxmm9j5v8eykn2?svg=true)](https://ci.appveyor.com/project/yafshar/kim-edn)
 [![codecov](https://codecov.io/gh/openkim/kim-edn/branch/master/graph/badge.svg)](https://codecov.io/gh/openkim/kim-edn)
 [![Anaconda-Server Badge](https://img.shields.io/conda/vn/conda-forge/kim-edn.svg)](https://anaconda.org/conda-forge/kim-edn)
 [![PyPI](https://img.shields.io/pypi/v/kim-edn.svg)](https://pypi.python.org/pypi/kim-edn)
@@ -297,22 +296,48 @@ reference.
 Installing `kim-edn` from the `conda-forge` channel can be achieved by adding
 `conda-forge` to your channels with:
 
-```sh
+```
 conda config --add channels conda-forge
+conda config --set channel_priority strict
 ```
 
 Once the `conda-forge` channel has been enabled, `kim-edn` can be installed
-with:
+with `conda`:
 
-```sh
+```
 conda install kim-edn
 ```
 
-It is possible to list all of the versions of `kim-edn` available on your
-platform with:
+or with `mamba`:
 
-```sh
+```
+mamba install kim-edn
+```
+
+It is possible to list all of the versions of `kim-edn` available on your
+platform with `conda`:
+
+```
 conda search kim-edn --channel conda-forge
+```
+
+or with `mamba`:
+
+```
+mamba search kim-edn --channel conda-forge
+```
+
+Alternatively, `mamba repoquery` may provide more information:
+
+```
+# Search all versions available on your platform:
+mamba repoquery search kim-edn --channel conda-forge
+
+# List packages depending on `kim-edn`:
+mamba repoquery whoneeds kim-edn --channel conda-forge
+
+# List dependencies of `kim-edn`:
+mamba repoquery depends kim-edn --channel conda-forge
 ```
 
 ## References
@@ -323,13 +348,9 @@ This module has been adapted and updated from the
 
 ## Copyright
 
-Copyright (c) 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010,
-2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019 Python Software
-Foundation;\
-All Rights Reserved
+Copyright © 2001-2024 Python Software Foundation. All rights reserved.
 
-Copyright (c) 2019-2021, Regents of the University of Minnesota.\
-All Rights Reserved
+Copyright (c) 2019-2024, Regents of the University of Minnesota. All Rights Reserved.
 
 ## Contributing
 
