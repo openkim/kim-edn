@@ -106,7 +106,7 @@ def main():
                 outfile.write('\n')
 
         if outfile is not sys.stdout:
-           outfile.close()
+            outfile.close()
     except ValueError as e:
         raise SystemExit(e)
 
