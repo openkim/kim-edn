@@ -85,6 +85,9 @@ class TestEncodeBase:
                          '{!r} != {!r} for ({!r})'.format(
                              result_, '[2.0 1.0]', 2 + 1j))
 
+        with self.assertRaises(TypeError):
+            self.kim_edn.dumps(TestEncodeBasestringAscii(), default=encode_complex)
+
 
 class TestPyEncodeBasestringAscii(TestEncodeBasestringAscii, PyTest):
     pass
