@@ -36,9 +36,10 @@ class TestDump:
 
         L = [X() for i in range(1122)]
         d = D()
-        d[1337] = "true.dat"
+        d[hash(d.keys()[0])] = "true.dat"
 
-        self.assertEqual(self.dumps(d, sort_keys=True), '{"1337" "true.dat"}')
+        self.assertEqual(self.dumps(d, sort_keys=(not L[0] < L[1])),
+                         '{"1337" "true.dat"}')
 
 
 class TestPyDump(TestDump, PyTest):
