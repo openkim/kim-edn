@@ -34,7 +34,7 @@ jobs:
         coverage run -m tests
     - name: Post Coverage
       uses: codecov/codecov-action@v4
-      if: matrix.os == 'ubuntu-latest' && matrix.python-version == '3.9'
+      if: matrix.os == 'ubuntu-latest' && matrix.python-version == '3.11'
       with:
         verbose: true
         fail_ci_if_error: false
