@@ -293,7 +293,7 @@ def detect_encoding(b):
     return 'utf-8'
 
 
-def load(fp, *, cls=None, parse_float=None, parse_int=None, parse_constant=None,
+def load(fp, *, cls=None, parse_float=None, parse_int=None,
          object_hook=None, object_pairs_hook=None):
     r"""Deserialize ``fp``.
 
@@ -331,13 +331,12 @@ def load(fp, *, cls=None, parse_float=None, parse_int=None, parse_constant=None,
                  cls=cls,
                  parse_float=parse_float,
                  parse_int=parse_int,
-                 parse_constant=parse_constant,
                  object_hook=object_hook,
                  object_pairs_hook=object_pairs_hook)
 
 
 def loads(s, *, cls=None, parse_float=None, parse_int=None,
-          parse_constant=None, object_hook=None, object_pairs_hook=None):
+          object_hook=None, object_pairs_hook=None):
     r"""Deserialize ``s``.
 
     Deserialize ``s`` (a ``str``, ``bytes`` or ``bytearray`` instance
@@ -364,11 +363,6 @@ def loads(s, *, cls=None, parse_float=None, parse_int=None,
     int(num_str). This can be used to use another datatype or parser
     for EDN integers (e.g. float).
 
-    ``parse_constant``, if specified, will be called with one of the
-    following strings: -Infinity, Infinity, NaN.
-    This can be used to raise an exception if invalid EDN numbers
-    are encountered.
-
     To use a custom ``KIMEDNDecoder`` subclass, specify it with the ``cls``
     kwarg; otherwise ``KIMEDNDecoder`` is used.
 
@@ -388,31 +382,30 @@ def loads(s, *, cls=None, parse_float=None, parse_int=None,
     if (cls is None
         and parse_float is None
         and parse_int is None
-        and parse_constant is None
-        and object_hook is None and
-            object_pairs_hook is None):
+        and object_hook is None
+        and object_pairs_hook is None):
         return _default_decoder.decode(s)
 
     if cls is None:
         cls = KIMEDNDecoder
 
-    kw = {}
-    if parse_float is not None:
-        kw['parse_float'] = parse_float
+    if type(cls) is type:
+        kw = {}
+        if parse_float is not None:
+            kw['parse_float'] = parse_float
 
-    if parse_int is not None:
-        kw['parse_int'] = parse_int
+        if parse_int is not None:
+            kw['parse_int'] = parse_int
 
-    if parse_constant is not None:
-        kw['parse_constant'] = parse_constant
+        if object_hook is not None:
+            kw['object_hook'] = object_hook
 
-    if object_hook is not None:
-        kw['object_hook'] = object_hook
+        if object_pairs_hook is not None:
+            kw['object_pairs_hook'] = object_pairs_hook
 
-    if object_pairs_hook is not None:
-        kw['object_pairs_hook'] = object_pairs_hook
+        return cls(**kw).decode(s)
 
-    return cls(**kw).decode(s)
+    return cls.decode(s) 
 
 
 from . import _version  # noqa: E402
