@@ -45,14 +45,12 @@ def main():
     parser = argparse.ArgumentParser(prog=prog, description=description)
 
     parser.add_argument('infile', nargs='?',
-                        type=argparse.FileType(encoding="utf-8"),
                         help='a KIM-EDN file to be validated or pretty-printed',
-                        default=sys.stdin)
+                        default='-')
 
     parser.add_argument('outfile', nargs='?',
-                        type=argparse.FileType('w', encoding="utf-8"),
                         help='write the output of infile to outfile',
-                        default=sys.stdout)
+                        default=None)
 
     parser.add_argument('--sort-keys', action='store_true', default=False,
                         help='sort the output of dictionaries alphabetically by key')
@@ -60,22 +58,61 @@ def main():
     parser.add_argument('--edn-lines', action='store_true', default=False,
                         help='parse input using the kim_edn lines format')
 
+    group = parser.add_mutually_exclusive_group()
+
+    group.add_argument('--indent', default=4, type=int,
+                       help='separate items with newlines and use this number '
+                       'of spaces for indentation')
+
+    group.add_argument('--tab', action='store_const', dest='indent',
+                       const='\t', help='separate items with newlines and use '
+                       'tabs for indentation')
+
+    group.add_argument('--no-indent', action='store_const', dest='indent',
+                       const=None,
+                       help='separate items with spaces rather than newlines')
+
+    group.add_argument('--compact', action='store_true',
+                       help='suppress all whitespace separation (most compact)')
+
     options = parser.parse_args()
 
-    with options.infile as infile, options.outfile as outfile:
+    if options.compact:
+        options.indent = None
+
+    try:
+        if options.infile == '-':
+            infile = sys.stdin
+        else:
+            infile = open(options.infile, encoding='utf-8')
+
         try:
             if options.edn_lines:
                 objs = (kim_edn.loads(line) for line in infile)
             else:
                 objs = (kim_edn.load(infile), )
+        finally:
+            if infile is not sys.stdin:
+                infile.close()
 
+        if options.outfile is None:
+            outfile = sys.stdout
+        else:
+            outfile = open(options.outfile, 'w', encoding='utf-8')
+
+        with outfile:
             for obj in objs:
-                kim_edn.dump(obj, outfile, sort_keys=options.sort_keys,
-                             indent=4)
+                kim_edn.dump(obj, outfile, sort_keys=options.sort_keys, indent=options.indent)
                 outfile.write('\n')
-        except ValueError as e:
-            raise SystemExit(e)
+
+        if outfile is not sys.stdout:
+            outfile.close()
+    except ValueError as e:
+        raise SystemExit(e)
 
 
 if __name__ == '__main__':
-    main()
+    try:
+        main()
+    except BrokenPipeError as exc:
+        sys.exit(exc.errno)

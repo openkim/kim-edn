@@ -81,8 +81,7 @@ Specializing KIM-EDN object encoding::
     >>> def encode_complex(obj):
     ...     if isinstance(obj, complex):
     ...         return [obj.real, obj.imag]
-    ...     msg = 'Object of type {} is not '.format(obj.__class__.__name__)
-    ...     msg += 'KIM-EDN serializable'
+    ...     msg = f'Object of type {obj.__class__.__name__} is not KIM-EDN serializable'
     ...     raise TypeError(msg)
     ...
     >>> kim_edn.dumps(2 + 1j, default=encode_complex)
@@ -143,9 +142,7 @@ Using kim_edn.tool from the shell to validate and pretty-print::
         }
     }
 
-"""
 
-"""
 Copyright (c) 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010,
 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019 Python Software Foundation;
 All Rights Reserved
@@ -296,7 +293,7 @@ def detect_encoding(b):
     return 'utf-8'
 
 
-def load(fp, *, cls=None, parse_float=None, parse_int=None, parse_constant=None,
+def load(fp, *, cls=None, parse_float=None, parse_int=None,
          object_hook=None, object_pairs_hook=None):
     r"""Deserialize ``fp``.
 
@@ -334,13 +331,12 @@ def load(fp, *, cls=None, parse_float=None, parse_int=None, parse_constant=None,
                  cls=cls,
                  parse_float=parse_float,
                  parse_int=parse_int,
-                 parse_constant=parse_constant,
                  object_hook=object_hook,
                  object_pairs_hook=object_pairs_hook)
 
 
 def loads(s, *, cls=None, parse_float=None, parse_int=None,
-          parse_constant=None, object_hook=None, object_pairs_hook=None):
+          object_hook=None, object_pairs_hook=None):
     r"""Deserialize ``s``.
 
     Deserialize ``s`` (a ``str``, ``bytes`` or ``bytearray`` instance
@@ -367,11 +363,6 @@ def loads(s, *, cls=None, parse_float=None, parse_int=None,
     int(num_str). This can be used to use another datatype or parser
     for EDN integers (e.g. float).
 
-    ``parse_constant``, if specified, will be called with one of the
-    following strings: -Infinity, Infinity, NaN.
-    This can be used to raise an exception if invalid EDN numbers
-    are encountered.
-
     To use a custom ``KIMEDNDecoder`` subclass, specify it with the ``cls``
     kwarg; otherwise ``KIMEDNDecoder`` is used.
 
@@ -383,7 +374,7 @@ def loads(s, *, cls=None, parse_float=None, parse_int=None,
     else:
         if not isinstance(s, (bytes, bytearray)):
             msg = 'the EDN object must be str, bytes or bytearray, '
-            msg += 'not {}'.format(s.__class__.__name__)
+            msg += f'not {s.__class__.__name__}'
             raise TypeError(msg)
 
         s = s.decode(detect_encoding(s), 'surrogatepass')
@@ -391,7 +382,6 @@ def loads(s, *, cls=None, parse_float=None, parse_int=None,
     if (cls is None
         and parse_float is None
         and parse_int is None
-        and parse_constant is None
         and object_hook is None and
             object_pairs_hook is None):
         return _default_decoder.decode(s)
@@ -399,25 +389,24 @@ def loads(s, *, cls=None, parse_float=None, parse_int=None,
     if cls is None:
         cls = KIMEDNDecoder
 
-    kw = {}
-    if parse_float is not None:
-        kw['parse_float'] = parse_float
+    if type(cls) is type:
+        kw = {}
+        if parse_float is not None:
+            kw['parse_float'] = parse_float
 
-    if parse_int is not None:
-        kw['parse_int'] = parse_int
+        if parse_int is not None:
+            kw['parse_int'] = parse_int
 
-    if parse_constant is not None:
-        kw['parse_constant'] = parse_constant
+        if object_hook is not None:
+            kw['object_hook'] = object_hook
 
-    if object_hook is not None:
-        kw['object_hook'] = object_hook
+        if object_pairs_hook is not None:
+            kw['object_pairs_hook'] = object_pairs_hook
 
-    if object_pairs_hook is not None:
-        kw['object_pairs_hook'] = object_pairs_hook
+        return cls(**kw).decode(s)
 
-    return cls(**kw).decode(s)
+    return cls.decode(s)
 
 
-from ._version import get_versions
-__version__ = get_versions()['version']
-del get_versions
+from . import _version  # noqa: E402
+__version__ = _version.get_versions()['version']

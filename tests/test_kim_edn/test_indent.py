@@ -40,8 +40,8 @@ class TestIndent:
         self.assertEqual(h1, h)
         self.assertEqual(h2, h)
         self.assertEqual(h3, h)
-        self.assertEqual(d2, expect.expandtabs(2).replace(',', ' ').replace(':',''))
-        self.assertEqual(d3, expect.replace(',', ' ').replace(':',''))
+        self.assertEqual(d2, expect.expandtabs(2).replace(',', ' ').replace(':', ''))
+        self.assertEqual(d3, expect.replace(',', ' ').replace(':', ''))
 
     def test_indent0(self):
         h = {3: 1}

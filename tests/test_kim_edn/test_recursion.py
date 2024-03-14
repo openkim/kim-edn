@@ -47,6 +47,7 @@ class TestRecursion:
         y = {"a": x, "b": x}
         # ensure that the marker is cleared
         self.dumps(x)
+        self.dumps(y)
 
     def test_defaultrecursion(self):
         class RecursiveKIMEDNEncoder(self.kim_edn.KIMEDNEncoder):

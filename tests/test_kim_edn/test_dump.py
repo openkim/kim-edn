@@ -1,4 +1,5 @@
 from io import StringIO
+import os
 from tests.test_kim_edn import PyTest
 
 
@@ -8,6 +9,14 @@ class TestDump:
 
         self.kim_edn.dump({}, sio)
         self.assertEqual(sio.getvalue(), '{}\n')   # NOTE
+
+        d = {1337: "true.edn"}
+        self.addCleanup(os.remove, d[1337])
+
+        self.kim_edn.dump(d, d[1337])
+
+        self.assertEqual(self.kim_edn.load('{"1337" "true.edn"}'),
+                         self.kim_edn.load(d[1337]))
 
     def test_dumps(self):
         self.assertEqual(self.dumps({}), '{}')
@@ -36,9 +45,10 @@ class TestDump:
 
         L = [X() for i in range(1122)]
         d = D()
-        d[1337] = "true.dat"
+        d[hash(d.keys()[0])] = "true.edn"
 
-        self.assertEqual(self.dumps(d, sort_keys=True), '{"1337" "true.dat"}')
+        self.assertEqual(self.dumps(d, sort_keys=(not L[0] < L[1])),
+                         '{"1337" "true.edn"}')
 
 
 class TestPyDump(TestDump, PyTest):

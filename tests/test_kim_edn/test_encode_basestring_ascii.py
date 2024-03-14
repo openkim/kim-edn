@@ -1,5 +1,4 @@
 from collections import OrderedDict
-from test.support import bigaddrspacetest
 from tests.test_kim_edn import PyTest
 
 
@@ -85,6 +84,9 @@ class TestEncodeBase:
         self.assertEqual(result_, '[2.0 1.0]',
                          '{!r} != {!r} for ({!r})'.format(
                              result_, '[2.0 1.0]', 2 + 1j))
+
+        with self.assertRaises(TypeError):
+            self.kim_edn.dumps(TestEncodeBasestringAscii(), default=encode_complex)
 
 
 class TestPyEncodeBasestringAscii(TestEncodeBasestringAscii, PyTest):

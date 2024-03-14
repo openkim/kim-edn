@@ -1,9 +1,5 @@
+import kim_edn
 import unittest
-
-try:
-    import kim_edn
-except:
-    raise Exception('Failed to import `kim_edn` utility module')
 
 
 class PyTest(unittest.TestCase):
