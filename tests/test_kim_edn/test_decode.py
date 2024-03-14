@@ -2,8 +2,10 @@ import decimal
 from io import StringIO
 from collections import OrderedDict
 import pickle
+import sys
 from test import support
 from tests.test_kim_edn import PyTest
+import unittest
 
 
 class TestDecode:
@@ -126,6 +128,7 @@ class TestDecode:
 
         self.assertRaises(ValueError, d.raw_decode, 'a' * 42, -50000)
 
+    @unittest.skipIf(sys.version_info.minor < 10, "not supported in this Python version")
     def test_limit_int(self):
         maxdigits = 5000
         with support.adjust_int_max_str_digits(maxdigits):
