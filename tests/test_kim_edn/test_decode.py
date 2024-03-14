@@ -1,6 +1,7 @@
 import decimal
 from io import StringIO
 from collections import OrderedDict
+import pickle
 from test import support
 from tests.test_kim_edn import PyTest
 
@@ -133,13 +134,19 @@ class TestDecode:
                 self.loads('1' * (maxdigits + 1))
 
     def test_strict(self):
-        self.assertRaises(self.kim_edn.KIMEDNDecodeError,
+        self.assertRaises(self.KIMEDNDecodeError,
                           self.loads, u"""{"desc": "\bhttp:"}""")
 
         d = self.kim_edn.KIMEDNDecoder(strict=False)
-        
+
         self.assertEqual(self.loads(u"""{"desc": "\bhttp:"}""", cls=d),
                          {'desc': '\x08http:'})
+
+    def test_reduce(self):
+        with self.assertRaises(self.KIMEDNDecodeError) as cm:
+            self.loads(u"""{"desc": "\bhttp:"}""")
+
+        self.assertIn(b'KIMEDNDecodeError', pickle.dumps(cm.exception))
 
 
 class TestPyDecode(TestDecode, PyTest):
