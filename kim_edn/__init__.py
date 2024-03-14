@@ -382,8 +382,8 @@ def loads(s, *, cls=None, parse_float=None, parse_int=None,
     if (cls is None
         and parse_float is None
         and parse_int is None
-        and object_hook is None
-        and object_pairs_hook is None):
+        and object_hook is None and
+            object_pairs_hook is None):
         return _default_decoder.decode(s)
 
     if cls is None:
