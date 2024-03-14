@@ -405,7 +405,7 @@ def loads(s, *, cls=None, parse_float=None, parse_int=None,
 
         return cls(**kw).decode(s)
 
-    return cls.decode(s) 
+    return cls.decode(s)
 
 
 from . import _version  # noqa: E402
