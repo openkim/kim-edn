@@ -1,15 +1,27 @@
+import decimal
 from io import StringIO
 from collections import OrderedDict
-
+from test import support
 from tests.test_kim_edn import PyTest
 
 
 class TestDecode:
+    def test_decimal(self):
+        rval = self.loads('1.1', parse_float=decimal.Decimal)
+
+        self.assertTrue(isinstance(rval, decimal.Decimal))
+        self.assertEqual(rval, decimal.Decimal('1.1'))
+
     def test_float(self):
         rval = self.loads('1.1')
 
         self.assertTrue(isinstance(rval, float))
         self.assertEqual(rval, 1.1)
+
+        rval = self.loads('1', parse_int=float)
+
+        self.assertTrue(isinstance(rval, float))
+        self.assertEqual(rval, 1.0)
 
     def test_empty_objects(self):
         self.assertEqual(self.loads('{}'), {})
@@ -112,6 +124,22 @@ class TestDecode:
         d = self.kim_edn.KIMEDNDecoder()
 
         self.assertRaises(ValueError, d.raw_decode, 'a' * 42, -50000)
+
+    def test_limit_int(self):
+        maxdigits = 5000
+        with support.adjust_int_max_str_digits(maxdigits):
+            self.loads('1' * maxdigits)
+            with self.assertRaises(ValueError):
+                self.loads('1' * (maxdigits + 1))
+
+    def test_strict(self):
+        self.assertRaises(self.kim_edn.KIMEDNDecodeError,
+                          self.loads, u"""{"desc": "\bhttp:"}""")
+
+        d = self.kim_edn.KIMEDNDecoder(strict=False)
+        
+        self.assertEqual(self.loads(u"""{"desc": "\bhttp:"}""", cls=d),
+                         {'desc': '\x08http:'})
 
 
 class TestPyDecode(TestDecode, PyTest):
