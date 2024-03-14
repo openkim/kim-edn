@@ -10,12 +10,12 @@ class TestDump:
         self.kim_edn.dump({}, sio)
         self.assertEqual(sio.getvalue(), '{}\n')   # NOTE
 
-        d = {1337: "true.ed"}
+        d = {1337: "true.edn"}
         self.addCleanup(os.remove, d[1337])
 
         self.kim_edn.dump(d, d[1337])
 
-        self.assertEqual(self.kim_edn.load('{"1337" "true.ed"}'),
+        self.assertEqual(self.kim_edn.load('{"1337" "true.edn"}'),
                          self.kim_edn.load(d[1337]))
 
     def test_dumps(self):
