@@ -24,8 +24,15 @@ keywords = [ "kim-edn", "edn" ]
 Homepage = "https://github.com/openkim/kim-edn"
 Issues = "https://github.com/openkim/kim-edn/issues"
 
+[tool.setuptools.packages.find]
+include = [ "kim_edn*" ]
+
+[tool.setuptools.dynamic]
+version = { attr = "kim_edn.__version__" }
+
 [tool.versioneer]
 VCS = "git"
+style = "pep440-pre"
 versionfile_source = "kim_edn/_version.py"
 versionfile_build = "kim_edn/_version.py"
 tag_prefix = "kim_edn-"
