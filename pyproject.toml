@@ -32,8 +32,8 @@ version = { attr = "kim_edn.__version__" }
 
 [tool.versioneer]
 VCS = "git"
-style = "pep440-pre"
+style = "pep440"
 versionfile_source = "kim_edn/_version.py"
 versionfile_build = "kim_edn/_version.py"
-tag_prefix = "kim_edn-"
+tag_prefix = "v"
 parentdir_prefix = "kim_edn-"
