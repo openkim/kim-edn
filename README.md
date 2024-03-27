@@ -244,7 +244,7 @@ the following objects and types by default:
 
 ### Requirements
 
-You need Python 3.6 or later to run `kim-edn`. You can have multiple Python
+You need Python 3.8 or later to run `kim-edn`. You can have multiple Python
 versions (2.x and 3.x) installed on the same system without problems.
 
 To install Python 3 for different Linux flavors, macOS and Windows, packages
