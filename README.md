@@ -50,10 +50,10 @@ not allowed
 
 `kim-edn` has been adapted and updated from the Python `json` module. It
 exposes an API familiar to users of the standard library.
-(See [pickle](https://docs.python.org/3.8/library/pickle.html#module-pickle),
+(See [pickle](https://docs.python.org/3/library/pickle.html#module-pickle),
 or
-[marshal](https://docs.python.org/3.8/library/marshal.html), or
-[json](https://docs.python.org/3.8/library/json.html) modules.)
+[marshal](https://docs.python.org/3/library/marshal.html), or
+[json](https://docs.python.org/3/library/json.html) modules.)
 
 Encoding basic Python object hierarchies::
 
@@ -244,8 +244,7 @@ the following objects and types by default:
 
 ### Requirements
 
-You need Python 3.8 or later to run `kim-edn`. You can have multiple Python
-versions (2.x and 3.x) installed on the same system without problems.
+You need Python 3.10 or later to run `kim-edn`.
 
 To install Python 3 for different Linux flavors, macOS and Windows, packages
 are available at\
