@@ -349,9 +349,9 @@ This module has been adapted and updated from the
 
 ## Copyright
 
-Copyright © 2001-2024 Python Software Foundation. All rights reserved.
+Copyright © 2001-2026 Python Software Foundation. All rights reserved.
 
-Copyright (c) 2019-2024, Regents of the University of Minnesota. All Rights Reserved.
+Copyright (c) 2019-2026, Regents of the University of Minnesota. All Rights Reserved.
 
 ## Contributing
 
