@@ -278,6 +278,20 @@ Depending on your configuration, you may have to run `pip` like this:
 python3 -m pip install kim-edn
 ```
 
+### Using uv
+
+Add `kim-edn` as a project dependency:
+
+```sh
+uv add kim-edn
+```
+
+Or install it into the active environment:
+
+```sh
+uv pip install kim-edn
+```
+
 ### Using pip (GIT Support)
 
 `pip` currently supports cloning over `git`
