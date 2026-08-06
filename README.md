@@ -50,10 +50,10 @@ not allowed
 
 `kim-edn` has been adapted and updated from the Python `json` module. It
 exposes an API familiar to users of the standard library.
-(See [pickle](https://docs.python.org/3.8/library/pickle.html#module-pickle),
+(See [pickle](https://docs.python.org/3/library/pickle.html#module-pickle),
 or
-[marshal](https://docs.python.org/3.8/library/marshal.html), or
-[json](https://docs.python.org/3.8/library/json.html) modules.)
+[marshal](https://docs.python.org/3/library/marshal.html), or
+[json](https://docs.python.org/3/library/json.html) modules.)
 
 Encoding basic Python object hierarchies::
 
@@ -133,6 +133,8 @@ Specializing KIM-EDN object decoding::
     >>> from decimal import Decimal
     >>> kim_edn.loads('1.1', parse_float=Decimal) == Decimal('1.1')
     True
+    >>> kim_edn.loads('[1 2 3]', array_hook=tuple)
+    (1, 2, 3)
 ```
 
 Specializing KIM-EDN object encoding::
@@ -244,8 +246,7 @@ the following objects and types by default:
 
 ### Requirements
 
-You need Python 3.8 or later to run `kim-edn`. You can have multiple Python
-versions (2.x and 3.x) installed on the same system without problems.
+You need Python 3.10 or later to run `kim-edn`.
 
 To install Python 3 for different Linux flavors, macOS and Windows, packages
 are available at\
@@ -275,6 +276,20 @@ Depending on your configuration, you may have to run `pip` like this:
 
 ```sh
 python3 -m pip install kim-edn
+```
+
+### Using uv
+
+Add `kim-edn` as a project dependency:
+
+```sh
+uv add kim-edn
+```
+
+Or install it into the active environment:
+
+```sh
+uv pip install kim-edn
 ```
 
 ### Using pip (GIT Support)
@@ -348,9 +363,9 @@ This module has been adapted and updated from the
 
 ## Copyright
 
-Copyright © 2001-2024 Python Software Foundation. All rights reserved.
+Copyright © 2001-2026 Python Software Foundation. All rights reserved.
 
-Copyright (c) 2019-2024, Regents of the University of Minnesota. All Rights Reserved.
+Copyright (c) 2019-2026, Regents of the University of Minnesota. All Rights Reserved.
 
 ## Contributing
 

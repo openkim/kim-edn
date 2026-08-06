@@ -122,7 +122,7 @@ def py_scanstring(s, end, strict=True, _b=BACKSLASH, _m=STRINGCHUNK.match, _be=B
                 else:
                     msg = "Invalid control character {0!r} at".format(
                         terminator)
-                    raise KIMEDNDecodeError(msg, s, end)
+                    raise KIMEDNDecodeError(msg, s, end - 1)
             else:
                 chunks_append(terminator)
                 continue
@@ -276,7 +276,7 @@ def KIMEDNObject(s_and_end, strict, scan_once, object_hook, object_pairs_hook,
     return pairs, end
 
 
-def KIMEDNArray(s_and_end, scan_once, _w=WHITESPACE.match,
+def KIMEDNArray(s_and_end, scan_once, array_hook=None, _w=WHITESPACE.match,
                 _ws=WHITESPACE_STR, _sc=STRIP_COMMENT.search):
     s, end = s_and_end
 
@@ -295,6 +295,8 @@ def KIMEDNArray(s_and_end, scan_once, _w=WHITESPACE.match,
 
     # Look-ahead for trivial empty array
     if nextchar == ']':
+        if array_hook is not None:
+            values = array_hook(values)
         return values, end + 1
 
     while True:
@@ -329,6 +331,9 @@ def KIMEDNArray(s_and_end, scan_once, _w=WHITESPACE.match,
         except IndexError:
             pass
 
+    if array_hook is not None:
+        values = array_hook(values)
+
     return values, end
 
 
@@ -357,7 +362,7 @@ class KIMEDNDecoder(object):
     """
 
     def __init__(self, *, parse_float=None, parse_int=None, strict=True,
-                 object_hook=None, object_pairs_hook=None):
+                 object_hook=None, object_pairs_hook=None, array_hook=None):
         r"""KIM-EDN decoder (KIMEDNDecoder) constructor.
 
         ``parse_float``, if specified, will be called with the string of every
@@ -386,6 +391,10 @@ class KIMEDNDecoder(object):
         If ``object_hook`` is also defined, the ``object_pairs_hook``
         takes priority.
 
+        ``array_hook``, if specified, will be called with the result of every
+        KIM-EDN vector decoded as a ``list``. Its return value will be used in
+        place of the ``list``.
+
         """
         self.parse_string = py_scanstring
         self.parse_object = KIMEDNObject
@@ -395,6 +404,7 @@ class KIMEDNDecoder(object):
         self.strict = strict
         self.object_hook = object_hook
         self.object_pairs_hook = object_pairs_hook
+        self.array_hook = array_hook
         self.memo = {}
 
         self.scan_once = scanner.make_scanner(self)

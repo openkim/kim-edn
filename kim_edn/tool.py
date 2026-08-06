@@ -32,6 +32,7 @@ Command-line tool to validate and pretty-print KIM-EDN
 """
 import argparse
 import kim_edn
+import os
 import sys
 
 
@@ -88,25 +89,39 @@ def main():
 
         try:
             if options.edn_lines:
-                objs = (kim_edn.loads(line) for line in infile)
+                in_place = False
+                if options.infile != '-' and options.outfile is not None:
+                    try:
+                        in_place = os.path.samefile(options.infile,
+                                                    options.outfile)
+                    except OSError:
+                        in_place = (os.path.abspath(options.infile) ==
+                                    os.path.abspath(options.outfile))
+
+                if in_place:
+                    source = infile.readlines()
+                else:
+                    source = infile
+                objs = (kim_edn.loads(line) for line in source)
             else:
                 objs = (kim_edn.load(infile), )
+
+            if options.outfile is None:
+                outfile = sys.stdout
+            else:
+                outfile = open(options.outfile, 'w', encoding='utf-8')
+
+            try:
+                for obj in objs:
+                    kim_edn.dump(obj, outfile, sort_keys=options.sort_keys, indent=options.indent)
+                    outfile.write('\n')
+            finally:
+                if outfile is not sys.stdout:
+                    outfile.close()
+
         finally:
             if infile is not sys.stdin:
                 infile.close()
-
-        if options.outfile is None:
-            outfile = sys.stdout
-        else:
-            outfile = open(options.outfile, 'w', encoding='utf-8')
-
-        with outfile:
-            for obj in objs:
-                kim_edn.dump(obj, outfile, sort_keys=options.sort_keys, indent=options.indent)
-                outfile.write('\n')
-
-        if outfile is not sys.stdout:
-            outfile.close()
     except ValueError as e:
         raise SystemExit(e)
 
