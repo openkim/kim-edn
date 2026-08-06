@@ -294,7 +294,7 @@ def detect_encoding(b):
 
 
 def load(fp, *, cls=None, parse_float=None, parse_int=None,
-         object_hook=None, object_pairs_hook=None):
+         object_hook=None, object_pairs_hook=None, array_hook=None):
     r"""Deserialize ``fp``.
 
     Deserialize ``fp`` (a ``.read()``-supporting file-like object, or a name
@@ -311,6 +311,10 @@ def load(fp, *, cls=None, parse_float=None, parse_int=None,
     return value of ``object_pairs_hook`` will be used instead of the ``dict``.
     This feature can be used to implement custom decoders.  If ``object_hook``
     is also defined, the ``object_pairs_hook`` takes priority.
+
+    ``array_hook`` is an optional function that will be called with the result
+    of any vector literal decoded as a ``list``. The return value of
+    ``array_hook`` will be used instead of the ``list``.
 
     To use a custom ``KIMEDNDecoder`` subclass, specify it with the ``cls``
     kwarg; otherwise ``KIMEDNDecoder`` is used.
@@ -332,11 +336,12 @@ def load(fp, *, cls=None, parse_float=None, parse_int=None,
                  parse_float=parse_float,
                  parse_int=parse_int,
                  object_hook=object_hook,
-                 object_pairs_hook=object_pairs_hook)
+                   object_pairs_hook=object_pairs_hook,
+                   array_hook=array_hook)
 
 
 def loads(s, *, cls=None, parse_float=None, parse_int=None,
-          object_hook=None, object_pairs_hook=None):
+               object_hook=None, object_pairs_hook=None, array_hook=None):
     r"""Deserialize ``s``.
 
     Deserialize ``s`` (a ``str``, ``bytes`` or ``bytearray`` instance
@@ -352,6 +357,10 @@ def loads(s, *, cls=None, parse_float=None, parse_int=None,
     return value of ``object_pairs_hook`` will be used instead of the ``dict``.
     This feature can be used to implement custom decoders.  If ``object_hook``
     is also defined, the ``object_pairs_hook`` takes priority.
+
+    ``array_hook`` is an optional function that will be called with the result
+    of any vector literal decoded as a ``list``. The return value of
+    ``array_hook`` will be used instead of the ``list``.
 
     ``parse_float``, if specified, will be called with the string
     of every EDN float to be decoded. By default this is equivalent to
@@ -383,7 +392,7 @@ def loads(s, *, cls=None, parse_float=None, parse_int=None,
         and parse_float is None
         and parse_int is None
         and object_hook is None and
-            object_pairs_hook is None):
+            object_pairs_hook is None and array_hook is None):
         return _default_decoder.decode(s)
 
     if cls is None:
@@ -402,6 +411,9 @@ def loads(s, *, cls=None, parse_float=None, parse_int=None,
 
         if object_pairs_hook is not None:
             kw['object_pairs_hook'] = object_pairs_hook
+
+        if array_hook is not None:
+            kw['array_hook'] = array_hook
 
         return cls(**kw).decode(s)
 

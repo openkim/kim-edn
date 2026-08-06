@@ -133,6 +133,8 @@ Specializing KIM-EDN object decoding::
     >>> from decimal import Decimal
     >>> kim_edn.loads('1.1', parse_float=Decimal) == Decimal('1.1')
     True
+    >>> kim_edn.loads('[1 2 3]', array_hook=tuple)
+    (1, 2, 3)
 ```
 
 Specializing KIM-EDN object encoding::

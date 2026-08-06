@@ -22,6 +22,7 @@ def make_scanner(context):
     strict = context.strict
     object_hook = context.object_hook
     object_pairs_hook = context.object_pairs_hook
+    array_hook = context.array_hook
     memo = context.memo
 
     match_number = NUMBER_RE.match
@@ -45,7 +46,7 @@ def make_scanner(context):
                                 object_pairs_hook,
                                 memo)
         elif nextchar == '[':
-            return parse_array((string, idx + 1), _scan_once)
+            return parse_array((string, idx + 1), _scan_once, array_hook)
         elif nextchar == 't' and string[idx:idx + 4] == 'true':
             return True, idx + 4
         elif nextchar == 'f' and string[idx:idx + 5] == 'false':

@@ -59,6 +59,31 @@ class TestDecode:
                                     object_pairs_hook=OrderedDict),
                          OrderedDict([('empty', OrderedDict())]))
 
+    def test_array_hook(self):
+        result = self.loads('[1 2 3]', array_hook=tuple)
+        self.assertEqual(result, (1, 2, 3))
+        self.assertEqual(type(result), tuple)
+
+        result = self.loads('{"xkd" [[1] [2] [3]]}',
+                            object_hook=OrderedDict, array_hook=tuple)
+        self.assertEqual(result,
+                         OrderedDict([('xkd', ((1,), (2,), (3,)))]))
+        self.assertEqual(type(result), OrderedDict)
+        self.assertEqual(type(result['xkd']), tuple)
+        for item in result['xkd']:
+            self.assertEqual(type(item), tuple)
+
+        self.assertEqual(self.loads('[]', array_hook=tuple), ())
+
+        decoder = self.kim_edn.KIMEDNDecoder(array_hook=tuple)
+        self.assertEqual(decoder.decode('[4 5]'), (4, 5))
+
+    def test_load_array_hook(self):
+        source = StringIO('[10 20 30]')
+        result = self.kim_edn.load(source, array_hook=tuple)
+        self.assertEqual(result, (10, 20, 30))
+        self.assertEqual(type(result), tuple)
+
     def test_decoder_optimizations(self):
         # Several optimizations were made that skip over calls to
         # the whitespace regex, so this test is designed to try and
