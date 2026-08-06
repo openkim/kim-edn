@@ -167,6 +167,15 @@ class TestTool:
         self.assertEqual(process.stdout, self.ednlines_expect)
         self.assertEqual(process.stderr, '')
 
+    def test_edn_lines_from_file(self):
+        infile = self._create_infile(self.ednlines_raw)
+        args = sys.executable, '-m', 'kim_edn.tool', '--edn-lines', infile
+        process = subprocess.run(args, capture_output=True, text=True, check=True)
+
+        self.assertEqual(process.returncode, 0)
+        self.assertEqual(process.stdout, self.ednlines_expect)
+        self.assertEqual(process.stderr, '')
+
     def test_help_flag(self):
         args = sys.executable, '-m', 'kim_edn.tool', '-h'
         process = subprocess.run(args, capture_output=True, text=True, check=True)

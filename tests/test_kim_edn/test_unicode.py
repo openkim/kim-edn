@@ -33,6 +33,19 @@ class TestUnicode:
         self.assertEqual(type(self.loads('"a"')), str)
         self.assertEqual(type(self.loads('["a"]')[0]), str)
 
+    def test_ascii_non_printable_decode_error_position(self):
+        allowed = {'\t', '\n', '\r'}
+        for control_character in map(chr, range(32)):
+            if control_character in allowed:
+                continue
+            with self.subTest(control_character=ord(control_character)):
+                with self.assertRaises(self.KIMEDNDecodeError) as caught:
+                    self.loads(f'"a{control_character}b"')
+                error = caught.exception
+                self.assertEqual(error.pos, 2)
+                self.assertEqual(error.lineno, 1)
+                self.assertEqual(error.colno, 3)
+
     def test_bytes_encode(self):
         self.assertRaises(TypeError, self.dumps, b"hi")
         self.assertRaises(TypeError, self.dumps, [b"hi"])

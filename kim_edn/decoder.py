@@ -122,7 +122,7 @@ def py_scanstring(s, end, strict=True, _b=BACKSLASH, _m=STRINGCHUNK.match, _be=B
                 else:
                     msg = "Invalid control character {0!r} at".format(
                         terminator)
-                    raise KIMEDNDecodeError(msg, s, end)
+                    raise KIMEDNDecodeError(msg, s, end - 1)
             else:
                 chunks_append(terminator)
                 continue

@@ -88,7 +88,8 @@ def main():
 
         try:
             if options.edn_lines:
-                objs = (kim_edn.loads(line) for line in infile)
+                lines = infile.readlines()
+                objs = (kim_edn.loads(line) for line in lines)
             else:
                 objs = (kim_edn.load(infile), )
         finally:
