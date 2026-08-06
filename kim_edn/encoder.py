@@ -388,4 +388,11 @@ def _make_iterencode(markers, _default, _encoder, _indent, _floatstr, _sort_keys
             if markers is not None:
                 del markers[markerid]
 
-    return _iterencode
+    def _iterencode_once(o, _current_indent_level):
+        nonlocal _iterencode, _iterencode_dict, _iterencode_vect
+        try:
+            yield from _iterencode(o, _current_indent_level)
+        finally:
+            del _iterencode, _iterencode_dict, _iterencode_vect
+
+    return _iterencode_once

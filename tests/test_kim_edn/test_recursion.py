@@ -1,3 +1,6 @@
+import gc
+import weakref
+
 from tests.test_kim_edn import PyTest
 
 
@@ -6,6 +9,20 @@ class KIMEDNTestObject:
 
 
 class TestRecursion:
+    def test_iterencode_breaks_cycle(self):
+        cyclic_gc_enabled = gc.isenabled()
+        gc.disable()
+        try:
+            encoder = self.kim_edn.KIMEDNEncoder()
+            encoder_reference = weakref.ref(encoder)
+            list(encoder.iterencode([]))
+            del encoder
+            self.assertIsNone(encoder_reference())
+        finally:
+            if cyclic_gc_enabled:
+                gc.enable()
+            gc.collect()
+
     def test_listrecursion(self):
         x = []
         x.append(x)
