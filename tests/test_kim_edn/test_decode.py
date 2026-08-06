@@ -78,6 +78,14 @@ class TestDecode:
         decoder = self.kim_edn.KIMEDNDecoder(array_hook=tuple)
         self.assertEqual(decoder.decode('[4 5]'), (4, 5))
 
+    def test_array_parser_without_hook(self):
+        def scan_once(source, index):
+            return int(source[index]), index + 1
+
+        result, end = self.kim_edn.decoder.KIMEDNArray(('1]', 0), scan_once)
+        self.assertEqual(result, [1])
+        self.assertEqual(end, 2)
+
     def test_load_array_hook(self):
         source = StringIO('[10 20 30]')
         result = self.kim_edn.load(source, array_hook=tuple)

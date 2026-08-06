@@ -276,7 +276,7 @@ def KIMEDNObject(s_and_end, strict, scan_once, object_hook, object_pairs_hook,
     return pairs, end
 
 
-def KIMEDNArray(s_and_end, scan_once, array_hook, _w=WHITESPACE.match,
+def KIMEDNArray(s_and_end, scan_once, array_hook=None, _w=WHITESPACE.match,
                 _ws=WHITESPACE_STR, _sc=STRIP_COMMENT.search):
     s, end = s_and_end
 
