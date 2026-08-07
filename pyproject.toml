@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools", "versioneer[toml]==0.29"]
+requires = ["setuptools>=80", "setuptools-scm>=9.2"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -32,13 +32,11 @@ Issues = "https://github.com/openkim/kim-edn/issues"
 [tool.setuptools.packages.find]
 include = [ "kim_edn*" ]
 
-[tool.setuptools.dynamic]
-version = { attr = "kim_edn.__version__" }
+[tool.setuptools_scm]
+version_file = "kim_edn/_version.py"
+write_to_source = true
+parentdir_prefix_version = "kim_edn-"
 
-[tool.versioneer]
-VCS = "git"
-style = "pep440"
-versionfile_source = "kim_edn/_version.py"
-versionfile_build = "kim_edn/_version.py"
-tag_prefix = "v"
-parentdir_prefix = "kim_edn-"
+[tool.setuptools_scm.tag]
+prefix = "v"
+strict = true

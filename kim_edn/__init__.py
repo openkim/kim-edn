@@ -420,5 +420,4 @@ def loads(s, *, cls=None, parse_float=None, parse_int=None,
     return cls.decode(s)
 
 
-from . import _version  # noqa: E402
-__version__ = _version.get_versions()['version']
+from ._version import version as __version__  # noqa: E402

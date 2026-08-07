@@ -8,6 +8,7 @@ __pycache__/
 
 # Distribution / packaging
 .Python
+kim_edn/_version.py
 build/
 develop-eggs/
 dist/
