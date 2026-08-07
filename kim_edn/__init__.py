@@ -420,5 +420,7 @@ def loads(s, *, cls=None, parse_float=None, parse_int=None,
     return cls.decode(s)
 
 
-from . import _version  # noqa: E402
-__version__ = _version.get_versions()['version']
+try:
+    from ._version import version as __version__  # noqa: E402
+except ModuleNotFoundError:
+    __version__ = '0+unknown'
